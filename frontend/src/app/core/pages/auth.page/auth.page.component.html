@@ -1,0 +1,26 @@
+<section class="auth auth-bg">
+  <div class="auth-grid">
+    <span class="line"></span>
+    <span class="title">{{title | uppercase}}</span>
+
+    <form class="auth-form" (ngSubmit)="onAuth(isSignUp)" #f="ngForm">
+      <span class="auth-form-title">{{!isSignUp ? 'Belépés' : 'Regisztráció'}}</span>
+      <input type="text" placeholder="Felhasználónév" name="username" required minlength="4" maxlength="10"
+        ngModel>
+      <input type="password" placeholder="Jelszó" name="password" required minlength="4" maxlength="10"
+        ngModel>
+      <input *ngIf="isSignUp" type="password" placeholder="Jelszó megerősítése" name="passwordAgain" required minlength="4"
+        maxlength="10" ngModel (input)="checkPasswords()">
+      <input *ngIf="isSignUp" type="text" placeholder="A városod neve, amit építesz" name="country" required
+        minlength="4" maxlength="15" ngModel>
+        <span class="auth-form-error" *ngIf="f.value.passwordAgain && !matchedPasswords">Nem egyeznek a jelszavak</span>
+      <button *ngIf="!isSignUp" class="auth-form-btn" [ngClass]="{'auth-form-btn-disabled': !f.valid}"
+        [disabled]="!f.valid" type="submit">Belépés</button>
+      <button *ngIf="isSignUp" class="auth-form-btn" [ngClass]="{'auth-form-btn-disabled': !f.valid || !matchedPasswords}"
+        [disabled]="!f.valid || !matchedPasswords" type="submit">Regisztráció</button>
+      <span class="auth-form-switch"
+        (click)="switchForm()">{{!isSignUp ? 'Regisztráció' : 'Bejelentkezés'}}</span>
+    </form>
+
+  </div>
+  <section>
