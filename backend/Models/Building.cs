@@ -7,5 +7,8 @@ namespace backend.Models
         public int Population { get; set; }
         public int Units { get; set; }
         public int CoralPerTurn { get; set; }
+
+        public int UserId { get; set; }
+        public User User { get; set; }
     }
 }

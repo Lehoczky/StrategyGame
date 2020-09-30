@@ -8,5 +8,8 @@ namespace backend.Models
         public int Defense { get; set; }
         public int CostPerTurn { get; set; }
         public int CoralPerTurn { get; set; }
+
+        public int UserId { get; set; }
+        public User User { get; set; }
     }
 }

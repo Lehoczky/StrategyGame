@@ -8,5 +8,8 @@ namespace backend.Models
         public int DefenseBonus { get; set; }
         public int AttackBonus { get; set; }
         public int TaxBonus { get; set; }
+
+        public int UserId { get; set; }
+        public User User { get; set; }
     }
 }
