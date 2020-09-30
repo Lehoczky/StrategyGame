@@ -27,6 +27,9 @@ namespace backend
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddScoped<IBuildingRepository, MockBuildingRepository>();
+            services.AddScoped<IUnitRepository, MockUnitRepository>();
+            services.AddScoped<IUpgradeRepository, MockUpgradeRepository>();
             services.AddScoped<IUserRepository, MockUserRepository>();
         }
 
