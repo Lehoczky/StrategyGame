@@ -32,6 +32,7 @@ namespace backend
                 Configuration.GetConnectionString("Database")
             ));
 
+            services.AddSwaggerDocument();
             services.AddControllers();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -53,6 +54,9 @@ namespace backend
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
 
             app.UseHttpsRedirection();
 

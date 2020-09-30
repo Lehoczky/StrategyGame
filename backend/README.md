@@ -33,3 +33,7 @@ Run it
 ```ps
 docker run --rm -d -p 8080:80 strategygame-backend
 ```
+
+## Endpoints
+
+API endpoints are documented at the `/swagger` location.
