@@ -32,10 +32,15 @@ namespace backend
             ));
 
             services.AddControllers();
-            services.AddScoped<IBuildingRepository, MockBuildingRepository>();
-            services.AddScoped<IUnitRepository, MockUnitRepository>();
-            services.AddScoped<IUpgradeRepository, MockUpgradeRepository>();
-            services.AddScoped<IUserRepository, MockUserRepository>();
+            // services.AddScoped<IBuildingRepository, MockBuildingRepository>();
+            // services.AddScoped<IUnitRepository, MockUnitRepository>();
+            // services.AddScoped<IUpgradeRepository, MockUpgradeRepository>();
+            // services.AddScoped<IUserRepository, MockUserRepository>();
+
+            services.AddScoped<IBuildingRepository, SqlBuildingRepository>();
+            services.AddScoped<IUnitRepository, SqlUnitRepository>();
+            services.AddScoped<IUpgradeRepository, SqlUpgradeRepository>();
+            services.AddScoped<IUserRepository, sqlUserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
