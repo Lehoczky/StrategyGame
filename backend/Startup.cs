@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using backend.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,6 +33,8 @@ namespace backend
             ));
 
             services.AddControllers();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             // services.AddScoped<IBuildingRepository, MockBuildingRepository>();
             // services.AddScoped<IUnitRepository, MockUnitRepository>();
             // services.AddScoped<IUpgradeRepository, MockUpgradeRepository>();

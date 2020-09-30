@@ -1,6 +1,7 @@
 using System.Collections.Generic;
+using AutoMapper;
 using backend.Data;
-using backend.Models;
+using backend.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllesrs
@@ -10,16 +11,19 @@ namespace backend.Controllesrs
     public class BuildingsController : ControllerBase
     {
         private readonly IBuildingRepository _repository;
+        private readonly IMapper _mapper;
 
-        public BuildingsController(IBuildingRepository repository)
+        public BuildingsController(IBuildingRepository repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Building>> GetBuildingsForUser(int userId)
+        public ActionResult<IEnumerable<BuildingReadDto>> GetBuildingsForUser(int userId)
         {
-            return Ok(_repository.GetBuildingsForUser(userId));
+            var buildings = _repository.GetBuildingsForUser(userId);
+            return Ok(_mapper.Map<IEnumerable<BuildingReadDto>>(buildings));
         }
     }
 }

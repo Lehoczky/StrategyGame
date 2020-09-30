@@ -1,6 +1,7 @@
 using System.Collections.Generic;
+using AutoMapper;
 using backend.Data;
-using backend.Models;
+using backend.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllesrs
@@ -10,16 +11,19 @@ namespace backend.Controllesrs
     public class UpgradesController : ControllerBase
     {
         private readonly IUpgradeRepository _repository;
+        private readonly IMapper _mapper;
 
-        public UpgradesController(IUpgradeRepository repository)
+        public UpgradesController(IUpgradeRepository repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Upgrade>> GetUpgradesForUser(int userId)
+        public ActionResult<IEnumerable<UpgradeReadDto>> GetUpgradesForUser(int userId)
         {
-            return Ok(_repository.GetUpgradesForUser(userId));
+            var upgrades = _repository.GetUpgradesForUser(userId);
+            return Ok(_mapper.Map<IEnumerable<UpgradeReadDto>>(upgrades));
         }
     }
 }
