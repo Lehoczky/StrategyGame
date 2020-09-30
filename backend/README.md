@@ -19,3 +19,17 @@ Start the server
 ```ps
 dotnet start
 ```
+
+## Run locally
+
+Build docker image
+
+```ps
+docker build --rm -t strategygame-backend:latest .
+```
+
+Run it
+
+```ps
+docker run --rm -d -p 8080:80 strategygame-backend
+```
