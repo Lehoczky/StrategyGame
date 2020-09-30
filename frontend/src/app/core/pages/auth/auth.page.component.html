@@ -12,7 +12,7 @@
       <input *ngIf="isSignUp" type="password" placeholder="Jelszó megerősítése" name="passwordAgain" required minlength="4"
         maxlength="10" ngModel (input)="checkPasswords()">
       <input *ngIf="isSignUp" type="text" placeholder="A városod neve, amit építesz" name="country" required
-        minlength="4" maxlength="15" ngModel>
+        minlength="3" maxlength="15" ngModel>
         <span class="auth-form-error" *ngIf="f.value.passwordAgain && !matchedPasswords">Nem egyeznek a jelszavak</span>
       <button *ngIf="!isSignUp" class="auth-form-btn" [ngClass]="{'auth-form-btn-disabled': !f.valid}"
         [disabled]="!f.valid" type="submit">Belépés</button>
