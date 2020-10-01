@@ -1,0 +1,21 @@
+.strategy {
+
+    &-main {
+        width: 100vw;
+        height: 100vh;
+        background: transparent url("../../../../assets/img/undersea_game-01.png") 0% 0% no-repeat padding-box;
+        background-size: cover;
+        opacity: 1;
+    }
+
+    &-img {
+        position: absolute;
+        top: 55%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 35rem;
+        height: 37rem;
+        background: transparent url("../../../../assets/img/undersea_game-07.png") 0% 0% no-repeat padding-box;
+        opacity: 1;
+    }
+}
