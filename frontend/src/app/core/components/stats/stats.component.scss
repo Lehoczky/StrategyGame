@@ -1,0 +1,37 @@
+.stats {
+    position: absolute;
+    top: 7%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 95vw;
+    margin: auto;
+    height: 8.04rem;
+
+    background: rgba(182, 253, 255, 0.3);
+    border-radius: 16px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+img {
+    width: 3rem;
+    height: 3rem;
+    background: #9ffff0 0% 0% no-repeat padding-box;
+    border: 2px solid #428dff;
+    border-radius: 1rem;
+    padding: 0.7rem;
+}
+
+.font-primary {
+    text-align: left;
+    font: normal normal normal 32px/51px Baloo;
+    letter-spacing: 0px;
+    color: #1c3e76;
+}
+
+
+
