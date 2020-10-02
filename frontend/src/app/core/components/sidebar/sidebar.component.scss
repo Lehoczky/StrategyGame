@@ -14,9 +14,7 @@
 .options > button {
   width: 13rem;
   height: 3rem;
-  background: transparent
-    linear-gradient(258deg, #9ffff0 0%, #6beee9 36%, #0fcfde 100%) 0% 0%
-    no-repeat padding-box;
+  background: linear-gradient(258deg, #9ffff0 0%, #6beee9 36%, #0fcfde 100%);
   box-shadow: 0px 3px 6px #3b7dbd;
   border-radius: 9rem;
   margin-top: 2rem;
@@ -45,7 +43,7 @@
 
   &-line {
     height: 0.6rem;
-    background: #9ffff0 0% 0% no-repeat padding-box;
+    background: #9ffff0;
   }
 
   &-title {

@@ -2,8 +2,7 @@
   &-main {
     width: 100vw;
     height: 100vh;
-    background: transparent url("../../../../assets/img/undersea_game-01.png")
-      0% 0% no-repeat padding-box;
+    background: url("../../../../assets/img/undersea_game-01.png");
     background-size: cover;
   }
 
@@ -14,8 +13,7 @@
     transform: translate(-50%, -50%);
     width: 35rem;
     height: 37rem;
-    background: transparent url("../../../../assets/img/undersea_game-07.png")
-      0% 0% no-repeat padding-box;
+    background: url("../../../../assets/img/undersea_game-07.png");
   }
 }
 

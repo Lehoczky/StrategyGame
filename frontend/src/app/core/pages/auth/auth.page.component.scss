@@ -4,7 +4,7 @@
     &-bg {
         width: 100vw;
         height: 100vh;
-        background: transparent url("../../../../assets/img/undersea_game-08.png") 0% 0% no-repeat padding-box;
+        background: url("../../../../assets/img/undersea_game-08.png");
         background-size: cover;
     }
 
@@ -39,8 +39,7 @@
         &-btn {
             width: 19rem;
             height: 5rem;
-            background: transparent linear-gradient(258deg, #9ffff0 0%, #6beee9 36%, #0fcfde 100%) 0% 0% no-repeat
-                padding-box;
+            background: linear-gradient(258deg, #9ffff0 0%, #6beee9 36%, #0fcfde 100%);
             box-shadow: 0px 3px 6px #3b7dbd;
             border-radius: 9rem;
             justify-self: center;
@@ -82,7 +81,7 @@
     margin-top: 12rem;
     width: 44.08rem;
     height: 2rem;
-    background: $color-primary-light 0% 0% no-repeat padding-box;
+    background: $color-primary-light;
     border: 0.7rem $color-primary-light;
 }
 
@@ -96,7 +95,7 @@
 input {
     width: 30rem;
     height: 4rem;
-    background: #ffffff 0% 0% no-repeat padding-box;
+    background: #ffffff;
     border-radius: 2rem;
     border: none;
     opacity: 0.4;
