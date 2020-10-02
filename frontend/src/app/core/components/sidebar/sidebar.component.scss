@@ -1,0 +1,58 @@
+.sidebar {
+  display: grid;
+  padding-left: 2rem;
+  width: max-content;
+  justify-items: center;
+  position: absolute;
+  bottom: 1%;
+}
+
+.options {
+  padding-bottom: 5rem;
+}
+
+.options > button {
+  width: 17rem;
+  height: 4.5rem;
+  background: transparent
+    linear-gradient(258deg, #9ffff0 0%, #6beee9 36%, #0fcfde 100%) 0% 0%
+    no-repeat padding-box;
+  box-shadow: 0px 3px 6px #3b7dbd;
+  border-radius: 9rem;
+  margin-top: 2rem;
+
+  text-align: center;
+  font: normal normal normal 2.5rem/3rem Baloo;
+  letter-spacing: 0px;
+  color: #001234;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.logo {
+  margin-top: 3rem;
+  width: 100%;
+
+  &:hover {
+    cursor: default;
+  }
+
+  &-line {
+    height: 0.8rem;
+    background: #9ffff0 0% 0% no-repeat padding-box;
+  }
+
+  &-title {
+    height: 6rem;
+    text-align: center;
+    font: normal normal normal 38px/60px Baloo;
+    letter-spacing: 0px;
+    color: #9ffff0;
+  }
+}
