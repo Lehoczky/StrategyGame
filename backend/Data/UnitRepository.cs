@@ -4,6 +4,11 @@ using backend.Models;
 
 namespace backend.Data
 {
+    public interface IUnitRepository
+    {
+        IEnumerable<Unit> GetUnitsForPlayer(int userId);
+    }
+    
     public class SqlUnitRepository : IUnitRepository
     {
         private readonly StrategyGameContext _context;

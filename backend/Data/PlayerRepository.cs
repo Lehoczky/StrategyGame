@@ -4,6 +4,12 @@ using backend.Models;
 
 namespace backend.Data
 {
+    public interface IPlayerRepository
+    {
+        IEnumerable<Player> GetAllPlayers();
+        Player GetPlayerById(int id);
+    }
+
     public class sqlPlayerRepository : IPlayerRepository
     {
         private readonly StrategyGameContext _context;

@@ -4,6 +4,11 @@ using backend.Models;
 
 namespace backend.Data
 {
+    public interface IUpgradeRepository
+    {
+        IEnumerable<Upgrade> GetUpgradesForPlayer(int userId);
+    }
+    
     public class SqlUpgradeRepository : IUpgradeRepository
     {
         private readonly StrategyGameContext _context;
