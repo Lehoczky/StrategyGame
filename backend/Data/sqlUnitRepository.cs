@@ -13,10 +13,10 @@ namespace backend.Data
             _context = context;
         }
 
-        public IEnumerable<Unit> GetUnitsForUser(int userId)
+        public IEnumerable<Unit> GetUnitsForPlayer(int userId)
         {
             return _context.Units
-                .Where(unit => unit.UserId == userId)
+                .Where(unit => unit.PlayerId == userId)
                 .ToList();
         }
     }

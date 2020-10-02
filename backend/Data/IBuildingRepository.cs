@@ -5,6 +5,6 @@ namespace backend.Data
 {
     public interface IBuildingRepository
     {
-        IEnumerable<Building> GetBuildingsForUser(int userId);
+        IEnumerable<Building> GetBuildingsForPlayer(int userId);
     }
 }

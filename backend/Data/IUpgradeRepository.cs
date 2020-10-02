@@ -5,6 +5,6 @@ namespace backend.Data
 {
     public interface IUpgradeRepository
     {
-        IEnumerable<Upgrade> GetUpgradesForUser(int userId);
+        IEnumerable<Upgrade> GetUpgradesForPlayer(int userId);
     }
 }

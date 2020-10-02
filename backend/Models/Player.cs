@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace backend.Models
 {
-    public class User
+    public class Player
     {
         public int Id { get; set; }
         [Required]

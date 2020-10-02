@@ -5,6 +5,6 @@ namespace backend.Data
 {
     public interface IUnitRepository
     {
-        IEnumerable<Unit> GetUnitsForUser(int userId);
+        IEnumerable<Unit> GetUnitsForPlayer(int userId);
     }
 }

@@ -4,11 +4,11 @@ using backend.Models;
 
 namespace backend.Profiles
 {
-    public class UsersProfile : Profile
+    public class PlayersProfile : Profile
     {
-        public UsersProfile()
+        public PlayersProfile()
         {
-            CreateMap<User, UserReadDto>();
+            CreateMap<Player, PlayerReadDto>();
         }
     }
 }

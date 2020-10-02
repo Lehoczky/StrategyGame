@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllesrs
 {
-    [Route("api/users/{userId}/units")]
+    [Route("api/players/{playerId}/units")]
     [ApiController]
     public class UnitsController : ControllerBase
     {
@@ -20,9 +20,9 @@ namespace backend.Controllesrs
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<UnitReadDto>> GetUnitsForUser(int userId)
+        public ActionResult<IEnumerable<UnitReadDto>> GetUnitsForPlayer(int playerId)
         {
-            var units = _repository.GetUnitsForUser(userId);
+            var units = _repository.GetUnitsForPlayer(playerId);
             return Ok(_mapper.Map<IEnumerable<UnitReadDto>>(units));
         }
     }

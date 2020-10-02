@@ -13,10 +13,10 @@ namespace backend.Data
             _context = context;
         }
 
-        public IEnumerable<Upgrade> GetUpgradesForUser(int userId)
+        public IEnumerable<Upgrade> GetUpgradesForPlayer(int userId)
         {
             return _context.Upgrades
-                .Where(upgrade => upgrade.UserId == userId)
+                .Where(upgrade => upgrade.PlayerId == userId)
                 .ToList();
         }
     }

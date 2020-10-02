@@ -9,7 +9,7 @@ namespace backend.Models
         public int CostPerTurn { get; set; }
         public int CoralPerTurn { get; set; }
 
-        public int UserId { get; set; }
-        public User User { get; set; }
+        public int PlayerId { get; set; }
+        public Player Player { get; set; }
     }
 }
