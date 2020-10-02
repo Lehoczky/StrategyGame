@@ -36,7 +36,9 @@ namespace backend
             services.AddIdentity<IdentityUser, IdentityRole>(options =>
             {
                 options.Password.RequireDigit = false;
+                options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 1;
             })
             .AddEntityFrameworkStores<StrategyGameContext>()
             .AddDefaultTokenProviders();
@@ -60,10 +62,11 @@ namespace backend
             services.AddControllers();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            services.AddScoped<IBuildingRepository, SqlBuildingRepository>();
-            services.AddScoped<IUnitRepository, SqlUnitRepository>();
-            services.AddScoped<IUpgradeRepository, SqlUpgradeRepository>();
-            services.AddScoped<IPlayerRepository, sqlPlayerRepository>();
+            services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IBuildingRepository, BuildingRepository>();
+            services.AddScoped<IUnitRepository, UnitRepository>();
+            services.AddScoped<IUpgradeRepository, UpgradeRepository>();
+            services.AddScoped<IPlayerRepository, PlayerRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

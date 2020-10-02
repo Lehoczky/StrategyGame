@@ -10,11 +10,11 @@ namespace backend.Data
         Player GetPlayerById(int id);
     }
 
-    public class sqlPlayerRepository : IPlayerRepository
+    public class PlayerRepository : IPlayerRepository
     {
         private readonly StrategyGameContext _context;
 
-        public sqlPlayerRepository(StrategyGameContext context)
+        public PlayerRepository(StrategyGameContext context)
         {
             _context = context;
         }

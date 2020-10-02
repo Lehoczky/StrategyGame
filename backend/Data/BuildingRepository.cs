@@ -9,11 +9,11 @@ namespace backend.Data
         IEnumerable<Building> GetBuildingsForPlayer(int userId);
     }
 
-    public class SqlBuildingRepository : IBuildingRepository
+    public class BuildingRepository : IBuildingRepository
     {
         private readonly StrategyGameContext _context;
 
-        public SqlBuildingRepository(StrategyGameContext context)
+        public BuildingRepository(StrategyGameContext context)
         {
             _context = context;
         }

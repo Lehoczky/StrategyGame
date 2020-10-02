@@ -8,12 +8,12 @@ namespace backend.Data
     {
         IEnumerable<Upgrade> GetUpgradesForPlayer(int userId);
     }
-    
-    public class SqlUpgradeRepository : IUpgradeRepository
+
+    public class UpgradeRepository : IUpgradeRepository
     {
         private readonly StrategyGameContext _context;
 
-        public SqlUpgradeRepository(StrategyGameContext context)
+        public UpgradeRepository(StrategyGameContext context)
         {
             _context = context;
         }

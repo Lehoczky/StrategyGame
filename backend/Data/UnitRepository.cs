@@ -8,12 +8,12 @@ namespace backend.Data
     {
         IEnumerable<Unit> GetUnitsForPlayer(int userId);
     }
-    
-    public class SqlUnitRepository : IUnitRepository
+
+    public class UnitRepository : IUnitRepository
     {
         private readonly StrategyGameContext _context;
 
-        public SqlUnitRepository(StrategyGameContext context)
+        public UnitRepository(StrategyGameContext context)
         {
             _context = context;
         }
