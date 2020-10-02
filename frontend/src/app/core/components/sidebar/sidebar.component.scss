@@ -4,7 +4,7 @@
   width: max-content;
   justify-items: center;
   position: absolute;
-  bottom: 1%;
+  bottom: 3%;
 }
 
 .options {
@@ -12,8 +12,8 @@
 }
 
 .options > button {
-  width: 17rem;
-  height: 4.5rem;
+  width: 13rem;
+  height: 3rem;
   background: transparent
     linear-gradient(258deg, #9ffff0 0%, #6beee9 36%, #0fcfde 100%) 0% 0%
     no-repeat padding-box;
@@ -22,7 +22,7 @@
   margin-top: 2rem;
 
   text-align: center;
-  font: normal normal normal 2.5rem/3rem Baloo;
+  font: normal normal normal 1.5rem/2rem Baloo;
   letter-spacing: 0px;
   color: #001234;
 
@@ -44,12 +44,12 @@
   }
 
   &-line {
-    height: 0.8rem;
+    height: 0.6rem;
     background: #9ffff0 0% 0% no-repeat padding-box;
   }
 
   &-title {
-    height: 6rem;
+    height: 4rem;
     text-align: center;
     font: normal normal normal 38px/60px Baloo;
     letter-spacing: 0px;

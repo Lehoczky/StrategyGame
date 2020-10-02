@@ -30,11 +30,11 @@ export class AuthPageComponent implements OnInit {
   }
 
   checkPasswords() {
-    this.matchedPasswords = this.authForm.value.password === this.authForm.value.passwordAgain ? true : false;
+    this.matchedPasswords = this.authForm.value.password === this.authForm.value.passwordAgain;
   }
 
   switchForm() {
-    this.isSignUp=!this.isSignUp;
+    this.isSignUp = !this.isSignUp;
     this.authForm.reset();
   }
 
