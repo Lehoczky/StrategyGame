@@ -1,0 +1,31 @@
+.profile {
+  display: grid;
+  width: 19.2rem;
+  height: 25rem;
+  background: rgba(182, 253, 255, 0.3);
+  border-radius: 1.6rem;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  text-align: center;
+  font-size: 1.7rem;
+
+  &-image {
+    width: 8rem;
+    height: 8.5rem;
+    background: #9ffff0 0% 0% no-repeat padding-box;
+    border: 2px solid #428dff;
+    border-radius: 1.4rem;
+    justify-self: center;
+  }
+
+  & div:nth-last-child(-n + 3) {
+    margin-top: -3rem;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
