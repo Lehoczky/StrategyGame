@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace backend.DTOs
 {
-    public class RegistrationFormDto
+    public class AuthFormDto
     {
         [Required]
         public string UserName { get; set; }
@@ -11,8 +11,9 @@ namespace backend.DTOs
         public string Password { get; set; }
     }
 
-    public class RegistrationResponseDto
+    public class TokenResponseDto
     {
-        public string Message { get; set; }
+        public string Access { get; set; }
     }
+
 }

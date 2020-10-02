@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using backend.Data;
 using backend.DTOs;
@@ -17,10 +18,32 @@ namespace backend.Controllesrs
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> register([FromBody] RegistrationFormDto formData)
+        public async Task<IActionResult> register([FromBody] AuthFormDto formData)
         {
-            var result = await _repository.register(formData);
-            return Ok(result);
+            try
+            {
+                var result = await _repository.Register(formData);
+                return Ok(result);
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest(e.Message);
+            }
+
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] AuthFormDto formData)
+        {
+            try
+            {
+                var result = await _repository.Login(formData);
+                return Ok(result);
+            }
+            catch (ArgumentException e)
+            {
+                return Unauthorized(e.Message);
+            }
         }
     }
 }
