@@ -17,7 +17,7 @@ dotnet ef database update
 Start the server
 
 ```ps
-dotnet start
+dotnet run
 ```
 
 ## Run locally
