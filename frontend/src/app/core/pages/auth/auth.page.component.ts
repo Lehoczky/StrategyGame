@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   templateUrl: './auth.page.component.html',
@@ -12,13 +13,14 @@ export class AuthPageComponent implements OnInit {
   isSignUp = false;
   matchedPasswords = false;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
   onAuth(isSignUp) {
     isSignUp ? this.onSignUp() : this.onLogin();
+    this.router.navigate(['strategy']);
   }
 
   onLogin() {

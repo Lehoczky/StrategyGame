@@ -7,9 +7,9 @@
     </p>
   </div>
 
-  <div class="buildings-1 font-s">
+  <div class="buildings-1 font-s" (click)="selectBuilding(1)" #buildingFirst>
 
-    <div>
+    <div class="buildings-1-img">
       <img class="buildings-img" src="../../../../../../assets/img/undersea_game-07.png">
       <p>Zátonyvár<br>
         50 embert ad a népességhez<br>
@@ -17,7 +17,7 @@
       </p>
     </div>
 
-    <div>
+    <div class="buildings-1-price">
       <p>
         x db<br>
         30 gyöngy / db
@@ -26,17 +26,17 @@
 
   </div>
 
-  <div class="buildings-2 font-s">
+  <div class="buildings-2 font-s" (click)="selectBuilding(2)" #buildingSecond>
 
-    <div>
+    <div class="buildings-2-img">
       <img class="buildings-img" src="../../../../../../assets/img/undersea_game-05.png">
       <p>Áramlásirányító<br>
         200 egységnek nyújt szállást
       </p>
     </div>
 
-    <div>
-      <p style="margin-bottom: 10%;">
+    <div class="buildings-2-price">
+      <p>
         x db<br>
         30 gyöngy / db
       </p>

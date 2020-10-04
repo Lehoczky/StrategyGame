@@ -10,6 +10,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ProfileCardComponent } from './components/profile-card/profile-card.component';
 import { SharedModule } from '../shared/shared.module';
 import { BuildingsModule } from '../features/buildings/buildings.module';
+import { UnitsModule } from '../features/units/units.module';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { BuildingsModule } from '../features/buildings/buildings.module';
         FormsModule,
         RouterModule,
         SharedModule,
-        BuildingsModule
+        BuildingsModule,
+        UnitsModule
       ]
 })
 export class CoreModule {

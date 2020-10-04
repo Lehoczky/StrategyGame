@@ -1,13 +1,11 @@
-@import '../../../../../scss/mixins.scss';
+@import "../../../../../scss/mixins.scss";
 
 .buildings {
   @include feature-box;
 
-  display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: 1fr 2fr 2fr 1fr;
   align-items: center;
-  padding: 0 3rem 0 3rem;
 
   &-heading {
     text-align: left;
@@ -24,9 +22,22 @@
     width: 20rem;
     height: 22rem;
 
-    &:hover {
+    display: grid;
+    grid-template-rows: 17rem 1fr;
+
+    &:hover,
+    &:focus {
       cursor: pointer;
       background: rgba(182, 253, 255, 0.3);
+      outline: none;
+    }
+
+    &-img {
+      grid-row: 1 / 2;
+    }
+
+    &-price {
+      grid-row: 2 / -1;
     }
   }
 
@@ -40,19 +51,23 @@
     width: 20rem;
     height: 22rem;
 
-    &:hover {
+    display: grid;
+    grid-template-rows: 17rem 1fr;
+
+    &-img {
+      grid-row: 1 / 2;
+    }
+
+    &-price {
+      grid-row: 2 / -1;
+    }
+
+    &:hover,
+    &:focus {
       cursor: pointer;
       background: rgba(182, 253, 255, 0.3);
+      outline: none;
     }
-  }
-
-  &-price-1 {
-    grid-row: 3 / 4;
-    grid-column: 1 / 2;
-  }
-  &-price-2 {
-    grid-row: 3 / 4;
-    grid-column: 2 / -1;
   }
 
   &-btn {

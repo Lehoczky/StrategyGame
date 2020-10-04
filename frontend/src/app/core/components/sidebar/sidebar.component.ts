@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
-import { BuildingsPageComponent } from 'src/app/features/buildings/pages/buildings/buildings.page.component';
 import { ComponentType } from '@angular/cdk/portal';
+import { BuildingsPageComponent } from 'src/app/features/buildings/pages/buildings/buildings.page.component';
+import { UnitsPageComponent } from 'src/app/features/units/pages/units/units.page.component';
 
 
 @Component({
@@ -13,7 +14,6 @@ import { ComponentType } from '@angular/cdk/portal';
 export class SidebarComponent implements OnInit {
   logo = 'Undersea';
   isDialogOpen = false;
-  components = BuildingsPageComponent;
   features: object[] = [];
 
   constructor(private router: Router, private route: ActivatedRoute, private dialog: MatDialog) { }
@@ -25,7 +25,7 @@ export class SidebarComponent implements OnInit {
       { name: 'Fejlesztések', route: 'features/buildings', component: BuildingsPageComponent },
       { name: 'Harc', route: 'features/buildings', component: BuildingsPageComponent },
       { name: 'Ranglista', route: 'features/buildings', component: BuildingsPageComponent },
-      { name: 'Sereg', route: 'features/buildings', component: BuildingsPageComponent }
+      { name: 'Sereg', route: 'features/units', component: UnitsPageComponent }
     ];
 
     if (!this.isDialogOpen) {
@@ -33,7 +33,7 @@ export class SidebarComponent implements OnInit {
     }
   }
 
-  openFeatureDialog(featureRoute: string, featureComp: ComponentType<BuildingsPageComponent>) {
+  openFeatureDialog(featureRoute: string, featureComp: ComponentType<Component>) {
     this.isDialogOpen = true;
     this.router.navigate([featureRoute], { relativeTo: this.route });
     let dialogRef = this.dialog.open(featureComp);
