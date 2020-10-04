@@ -6,7 +6,9 @@ import { StrategyPageComponent } from './core/pages/strategy/strategy.page.compo
 const routes: Routes = [
   { path: '', redirectTo: '/auth', pathMatch: 'full' },
   { path: 'auth', component: AuthPageComponent },
-  { path: 'strategy', component: StrategyPageComponent },
+  { path: 'strategy', component: StrategyPageComponent, children: [
+    { path: 'features/buildings', loadChildren: './features/buildings/buildings.module#BuildingsModule' }
+  ] },
   {
     path: 'battle',
     loadChildren: './features/battle/battle.module#BattleModule'

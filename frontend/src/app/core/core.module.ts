@@ -8,6 +8,8 @@ import { StrategyPageComponent } from './pages/strategy/strategy.page.component'
 import { StatsComponent } from './components/stats/stats.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ProfileCardComponent } from './components/profile-card/profile-card.component';
+import { SharedModule } from '../shared/shared.module';
+import { BuildingsModule } from '../features/buildings/buildings.module';
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import { ProfileCardComponent } from './components/profile-card/profile-card.com
       imports: [
         BrowserModule,
         FormsModule,
-        RouterModule
+        RouterModule,
+        SharedModule,
+        BuildingsModule
       ]
 })
 export class CoreModule {

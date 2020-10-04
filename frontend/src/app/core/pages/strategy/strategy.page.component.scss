@@ -7,13 +7,15 @@
   }
 
   &-img {
-    position: absolute;
-    top: 55%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    margin-top: 30rem;
+    margin-left: 50rem;
     width: 35rem;
     height: 37rem;
     background: url("../../../../assets/img/undersea_game-07.png");
   }
+}
+
+.flex {
+  display: flex;
 }
 
