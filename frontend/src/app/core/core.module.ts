@@ -11,6 +11,7 @@ import { ProfileCardComponent } from './components/profile-card/profile-card.com
 import { SharedModule } from '../shared/shared.module';
 import { BuildingsModule } from '../features/buildings/buildings.module';
 import { UnitsModule } from '../features/units/units.module';
+import { BattleModule } from '../features/battle/battle.module';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { UnitsModule } from '../features/units/units.module';
         RouterModule,
         SharedModule,
         BuildingsModule,
-        UnitsModule
+        UnitsModule,
+        BattleModule
       ]
 })
 export class CoreModule {

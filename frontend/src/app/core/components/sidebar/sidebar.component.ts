@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material';
 import { ComponentType } from '@angular/cdk/portal';
 import { BuildingsPageComponent } from 'src/app/features/buildings/pages/buildings/buildings.page.component';
 import { UnitsPageComponent } from 'src/app/features/units/pages/units/units.page.component';
+import { BattlePageComponent } from 'src/app/features/battle/pages/battle/battle.page.component';
 
 
 @Component({
@@ -23,7 +24,7 @@ export class SidebarComponent implements OnInit {
       { name: 'Épületek', route: 'features/buildings', component: BuildingsPageComponent },
       { name: 'Támadás', route: 'features/buildings', component: BuildingsPageComponent },
       { name: 'Fejlesztések', route: 'features/buildings', component: BuildingsPageComponent },
-      { name: 'Harc', route: 'features/buildings', component: BuildingsPageComponent },
+      { name: 'Harc', route: 'features/battle', component: BattlePageComponent },
       { name: 'Ranglista', route: 'features/buildings', component: BuildingsPageComponent },
       { name: 'Sereg', route: 'features/units', component: UnitsPageComponent }
     ];

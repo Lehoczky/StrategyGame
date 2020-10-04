@@ -7,13 +7,13 @@ import { StrategyPageComponent } from './core/pages/strategy/strategy.page.compo
 const routes: Routes = [
   { path: '', redirectTo: '/auth', pathMatch: 'full' },
   { path: 'auth', component: AuthPageComponent },
-  { path: 'strategy', component: StrategyPageComponent, canActivate: [AuthGuard], children: [
-    { path: 'features/buildings', loadChildren: './features/buildings/buildings.module#BuildingsModule' },
-    { path: 'features/units', loadChildren: './features/units/units.module#UnitsModule' }
-  ] },
   {
-    path: 'battle',
-    loadChildren: './features/battle/battle.module#BattleModule'
+    path: 'strategy', component: StrategyPageComponent, canActivate: [AuthGuard], children: [
+      { path: 'features/buildings', loadChildren: './features/buildings/buildings.module#BuildingsModule' },
+      { path: 'features/units', loadChildren: './features/units/units.module#UnitsModule' },
+      { path: 'features/battle', loadChildren: './features/battle/battle.module#BattleModule' },
+
+    ]
   }
 ];
 
