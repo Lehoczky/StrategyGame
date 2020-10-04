@@ -1,17 +1,13 @@
 <div class="sidebar">
-  <div class="options" style="display: grid">
-    <button type="button">Épületek</button>
-    <button type="button">Támadás</button>
-    <button type="button">Fejlesztések</button>
-    <button type="button">Harc</button>
-    <button type="button">Ranglista</button>
-    <button type="button">Sereg</button>
+  <div class="options">
+    <button *ngFor="let feature of features" type="button"
+      (click)="openFeatureDialog(feature.route, feature.component)">{{feature.name}}</button>
   </div>
 
   <app-profile-card></app-profile-card>
 
   <div class="logo">
     <div class="logo-line"></div>
-    <div class="logo-title">UNDERSEA</div>
+    <div class="logo-title">{{logo | uppercase}}</div>
   </div>
 </div>
