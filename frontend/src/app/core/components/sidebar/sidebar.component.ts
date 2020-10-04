@@ -5,6 +5,7 @@ import { ComponentType } from '@angular/cdk/portal';
 import { BuildingsPageComponent } from 'src/app/features/buildings/pages/buildings/buildings.page.component';
 import { UnitsPageComponent } from 'src/app/features/units/pages/units/units.page.component';
 import { BattlePageComponent } from 'src/app/features/battle/pages/battle/battle.page.component';
+import { AttackPageComponent } from 'src/app/features/attack/pages/attack/attack.page.component';
 
 
 @Component({
@@ -22,7 +23,7 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
     this.features = [
       { name: 'Épületek', route: 'features/buildings', component: BuildingsPageComponent },
-      { name: 'Támadás', route: 'features/buildings', component: BuildingsPageComponent },
+      { name: 'Támadás', route: 'features/attack', component: AttackPageComponent },
       { name: 'Fejlesztések', route: 'features/buildings', component: BuildingsPageComponent },
       { name: 'Harc', route: 'features/battle', component: BattlePageComponent },
       { name: 'Ranglista', route: 'features/buildings', component: BuildingsPageComponent },

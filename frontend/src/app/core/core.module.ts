@@ -12,7 +12,7 @@ import { SharedModule } from '../shared/shared.module';
 import { BuildingsModule } from '../features/buildings/buildings.module';
 import { UnitsModule } from '../features/units/units.module';
 import { BattleModule } from '../features/battle/battle.module';
-
+import { AttackModule } from '../features/attack/attack.module';
 
 @NgModule({
     declarations: [
@@ -29,7 +29,8 @@ import { BattleModule } from '../features/battle/battle.module';
         SharedModule,
         BuildingsModule,
         UnitsModule,
-        BattleModule
+        BattleModule,
+        AttackModule
       ]
 })
 export class CoreModule {
