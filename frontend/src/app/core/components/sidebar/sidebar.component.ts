@@ -7,6 +7,7 @@ import { UnitsPageComponent } from 'src/app/features/units/pages/units/units.pag
 import { BattlePageComponent } from 'src/app/features/battle/pages/battle/battle.page.component';
 import { AttackPageComponent } from 'src/app/features/attack/pages/attack/attack.page.component';
 import { UpgradesPageComponent } from 'src/app/features/upgrades/pages/upgrades/upgrades.page.component';
+import { LeaderboardPageComponent } from 'src/app/features/leaderboard/pages/leaderboard.page/leaderboard.page.component';
 
 
 @Component({
@@ -27,7 +28,7 @@ export class SidebarComponent implements OnInit {
       { name: 'Támadás', route: 'features/attack', component: AttackPageComponent },
       { name: 'Fejlesztések', route: 'features/upgrades', component: UpgradesPageComponent },
       { name: 'Harc', route: 'features/battle', component: BattlePageComponent },
-      { name: 'Ranglista', route: 'features/buildings', component: BuildingsPageComponent },
+      { name: 'Ranglista', route: 'features/leaderboard', component: LeaderboardPageComponent },
       { name: 'Sereg', route: 'features/units', component: UnitsPageComponent }
     ];
 

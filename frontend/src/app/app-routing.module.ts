@@ -13,8 +13,8 @@ const routes: Routes = [
       { path: 'features/attack', loadChildren: './features/attack/attack.module#AttackModule' },
       { path: 'features/upgrades', loadChildren: './features/upgrades/upgrades.module#UpgradesModule' },
       { path: 'features/battle', loadChildren: './features/battle/battle.module#BattleModule' },
-      { path: 'features/units', loadChildren: './features/units/units.module#UnitsModule' },
-
+      { path: 'features/leaderboard', loadChildren: './features/leaderboard/leaderboard.module#LeaderboardModule' },
+      { path: 'features/units', loadChildren: './features/units/units.module#UnitsModule' }
     ]
   }
 ];

@@ -14,6 +14,7 @@ import { UnitsModule } from '../features/units/units.module';
 import { BattleModule } from '../features/battle/battle.module';
 import { AttackModule } from '../features/attack/attack.module';
 import { UpgradesModule } from '../features/upgrades/upgrades.module';
+import { LeaderboardModule } from '../features/leaderboard/leaderboard.module';
 
 @NgModule({
     declarations: [
@@ -32,7 +33,8 @@ import { UpgradesModule } from '../features/upgrades/upgrades.module';
         UnitsModule,
         BattleModule,
         AttackModule,
-        UpgradesModule
+        UpgradesModule,
+        LeaderboardModule
       ]
 })
 export class CoreModule {
