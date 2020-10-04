@@ -13,6 +13,7 @@ import { BuildingsModule } from '../features/buildings/buildings.module';
 import { UnitsModule } from '../features/units/units.module';
 import { BattleModule } from '../features/battle/battle.module';
 import { AttackModule } from '../features/attack/attack.module';
+import { UpgradesModule } from '../features/upgrades/upgrades.module';
 
 @NgModule({
     declarations: [
@@ -30,7 +31,8 @@ import { AttackModule } from '../features/attack/attack.module';
         BuildingsModule,
         UnitsModule,
         BattleModule,
-        AttackModule
+        AttackModule,
+        UpgradesModule
       ]
 })
 export class CoreModule {

@@ -6,6 +6,7 @@ import { BuildingsPageComponent } from 'src/app/features/buildings/pages/buildin
 import { UnitsPageComponent } from 'src/app/features/units/pages/units/units.page.component';
 import { BattlePageComponent } from 'src/app/features/battle/pages/battle/battle.page.component';
 import { AttackPageComponent } from 'src/app/features/attack/pages/attack/attack.page.component';
+import { UpgradesPageComponent } from 'src/app/features/upgrades/pages/upgrades/upgrades.page.component';
 
 
 @Component({
@@ -24,7 +25,7 @@ export class SidebarComponent implements OnInit {
     this.features = [
       { name: 'Épületek', route: 'features/buildings', component: BuildingsPageComponent },
       { name: 'Támadás', route: 'features/attack', component: AttackPageComponent },
-      { name: 'Fejlesztések', route: 'features/buildings', component: BuildingsPageComponent },
+      { name: 'Fejlesztések', route: 'features/upgrades', component: UpgradesPageComponent },
       { name: 'Harc', route: 'features/battle', component: BattlePageComponent },
       { name: 'Ranglista', route: 'features/buildings', component: BuildingsPageComponent },
       { name: 'Sereg', route: 'features/units', component: UnitsPageComponent }

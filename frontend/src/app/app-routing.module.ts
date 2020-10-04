@@ -11,6 +11,7 @@ const routes: Routes = [
     path: 'strategy', component: StrategyPageComponent, canActivate: [AuthGuard], children: [
       { path: 'features/buildings', loadChildren: './features/buildings/buildings.module#BuildingsModule' },
       { path: 'features/attack', loadChildren: './features/attack/attack.module#AttackModule' },
+      { path: 'features/upgrades', loadChildren: './features/upgrades/upgrades.module#UpgradesModule' },
       { path: 'features/battle', loadChildren: './features/battle/battle.module#BattleModule' },
       { path: 'features/units', loadChildren: './features/units/units.module#UnitsModule' },
 
