@@ -1,0 +1,13 @@
+@mixin feature-box {
+  position: fixed;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ffffff;
+
+  width: 55rem;
+  height: 50rem;
+  background: #03255f;
+  box-shadow: 0px 3px 34px #03255f;
+  border-radius: 1.6rem;
+}
