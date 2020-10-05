@@ -29,7 +29,7 @@ namespace backend.Controllesrs
             }
             catch (ArgumentException e)
             {
-                return BadRequest(e.Message);
+                return BadRequest(new ErrorResponseDto { Message = e.Message });
             }
 
         }
@@ -44,7 +44,7 @@ namespace backend.Controllesrs
             }
             catch (ArgumentException e)
             {
-                return Unauthorized(e.Message);
+                return Unauthorized(new ErrorResponseDto { Message = e.Message });
             }
         }
     }
