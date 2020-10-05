@@ -43,6 +43,10 @@ export class AuthPageComponent implements OnInit {
     return this.authForm.value.passwordAgain;
   }
 
+  get country(): string {
+    return this.authForm.value.country;
+  }
+
   onAuth(isSignUp: boolean): void {
     isSignUp ? this.onSignUp() : this.onLogin();
   }
@@ -62,7 +66,17 @@ export class AuthPageComponent implements OnInit {
   }
 
   onSignUp(): void {
-    console.log('signing up...');
+    this.authenticationService
+      .register(this.username, this.password, this.country)
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.router.navigate([this.returnUrl]);
+        },
+        errorResponse => {
+          this.error = errorResponse.error.message;
+        },
+      );
   }
 
   checkPasswords(): void {
