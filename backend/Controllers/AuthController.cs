@@ -1,7 +1,9 @@
 using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using backend.Data;
 using backend.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllesrs
@@ -18,7 +20,7 @@ namespace backend.Controllesrs
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> register([FromBody] AuthFormDto formData)
+        public async Task<IActionResult> register([FromBody] RegistrationFormDto formData)
         {
             try
             {
@@ -33,7 +35,7 @@ namespace backend.Controllesrs
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] AuthFormDto formData)
+        public async Task<IActionResult> Login([FromBody] LoginFormDto formData)
         {
             try
             {

@@ -8,7 +8,7 @@ namespace backend.Models
         public int Units { get; set; }
         public int CoralPerTurn { get; set; }
 
-        public int PlayerId { get; set; }
-        public Player Player { get; set; }
+        public int CountryId { get; set; }
+        public Country Country { get; set; }
     }
 }

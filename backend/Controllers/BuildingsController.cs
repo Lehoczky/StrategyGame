@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using AutoMapper;
 using backend.Data;
 using backend.DTOs;
@@ -7,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllesrs
 {
-    [Route("api/players/{playerId}/buildings")]
+    [Route("api/buildings")]
     [ApiController]
     [Authorize]
     public class BuildingsController : ControllerBase
@@ -22,9 +24,10 @@ namespace backend.Controllesrs
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<BuildingReadDto>> GetBuildingsForPlayer(int playerId)
+        public ActionResult<IEnumerable<BuildingReadDto>> GetBuildingsForUser()
         {
-            var buildings = _repository.GetBuildingsForPlayer(playerId);
+            var userId = Int32.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var buildings = _repository.GetBuildingsForUser(userId);
             return Ok(_mapper.Map<IEnumerable<BuildingReadDto>>(buildings));
         }
     }

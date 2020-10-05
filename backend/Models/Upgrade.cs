@@ -9,7 +9,7 @@ namespace backend.Models
         public int AttackBonus { get; set; }
         public int TaxBonus { get; set; }
 
-        public int PlayerId { get; set; }
-        public Player Player { get; set; }
+        public int CountryId { get; set; }
+        public Country Country { get; set; }
     }
 }

@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using backend.DTOs;
+using backend.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 
@@ -13,20 +14,20 @@ namespace backend.Data
 {
     public interface IAuthRepository
     {
-        Task<TokenResponseDto> Register(AuthFormDto formData);
-        Task<TokenResponseDto> Login(AuthFormDto formData);
+        Task<TokenResponseDto> Register(RegistrationFormDto formData);
+        Task<TokenResponseDto> Login(LoginFormDto formData);
     }
 
     public class AuthRepository : IAuthRepository
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public AuthRepository(UserManager<IdentityUser> userManager)
+        public AuthRepository(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
         }
 
-        public async Task<TokenResponseDto> Login(AuthFormDto formData)
+        public async Task<TokenResponseDto> Login(LoginFormDto formData)
         {
             var user = await _userManager.FindByNameAsync(formData.UserName);
             System.Console.WriteLine(user);
@@ -39,7 +40,7 @@ namespace backend.Data
 
             var claims = new[]
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Id),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, formData.UserName)
             };
 
@@ -47,12 +48,14 @@ namespace backend.Data
             return new TokenResponseDto { Access = token };
         }
 
-        public async Task<TokenResponseDto> Register(AuthFormDto formData)
+        public async Task<TokenResponseDto> Register(RegistrationFormDto formData)
         {
             if (formData == null)
                 throw new NullReferenceException("Form data is null");
 
-            var identityUser = new IdentityUser { UserName = formData.UserName };
+            var identityUser = new ApplicationUser { UserName = formData.UserName };
+            identityUser.Country = new Country { Name = "asd", Pearls = 0, Coralls = 0 };
+
             var result = await _userManager.CreateAsync(identityUser, formData.Password);
 
             if (!result.Succeeded)
@@ -64,7 +67,7 @@ namespace backend.Data
 
             var claims = new[]
             {
-                new Claim(ClaimTypes.NameIdentifier, identityUser.Id),
+                new Claim(ClaimTypes.NameIdentifier, identityUser.Id.ToString()),
                 new Claim(ClaimTypes.Name, formData.UserName)
             };
 

@@ -5,27 +5,26 @@ using backend.Models;
 
 namespace backend.Data
 {
-    public interface IUpgradeRepository
+    public interface ICountryRepository
     {
-        IEnumerable<Upgrade> GetUpgradesForUser(int userId);
+        Country GetCountryForUser(int userId);
     }
 
-    public class UpgradeRepository : IUpgradeRepository
+    public class CountryRepository : ICountryRepository
     {
         private readonly StrategyGameContext _context;
 
-        public UpgradeRepository(StrategyGameContext context)
+        public CountryRepository(StrategyGameContext context)
         {
             _context = context;
         }
 
-        public IEnumerable<Upgrade> GetUpgradesForUser(int userId)
+        public Country GetCountryForUser(int userId)
         {
             var user = _context.Users
                 .Include(user => user.Country)
-                    .ThenInclude(country => country.Upgrades)
                 .Single(user => user.Id == userId);
-            return user.Country.Upgrades;
+            return user.Country;
         }
     }
 }
