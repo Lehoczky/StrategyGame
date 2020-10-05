@@ -1,22 +1,37 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs';
+import {
+  ActivatedRouteSnapshot,
+  CanActivate,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
 
+import { AuthService } from '../services/auth.service';
+
+/**
+ * Guard which checks if a user is logged in, and
+ * if not, redirects to the login page.
+ *
+ * Also inject a route param that the login page
+ * can use to redirect back to the originally
+ * visited URL.
+ */
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-    isAuthenticated = true;
+  constructor(
+    private router: Router,
+    private authenticationService: AuthService,
+  ) {}
 
-    constructor(private router: Router) { }
-    canActivate(route: ActivatedRouteSnapshot,
-        state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-
-        if (this.isAuthenticated) {
-            return true;
-        } else {
-            this.router.navigate(['auth']);
-            return false;
-        }
+  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    const currentUser = this.authenticationService.currentUserValue;
+    if (currentUser) {
+      return true;
     }
+
+    this.router.navigate(['auth'], { queryParams: { returnUrl: state.url } });
+    return false;
+  }
 }
