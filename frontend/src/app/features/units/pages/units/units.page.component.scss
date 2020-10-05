@@ -1,6 +1,99 @@
-@import '../../../../../scss/mixins.scss';
+@import "../../../../../scss/mixins.scss";
 
 .units {
+  @include feature-box;
 
-    @include feature-box;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(1, min-content) 1fr;
+  align-items: center;
+  justify-items: center;
+  font-size: 1.3rem;
+  width: 115rem;
+
+  &-heading {
+    grid-row: 1 / 2;
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+
+  &-1,
+  &-2,
+  &-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: min-content 1fr min-content;
+    padding: 1.3rem;
+    text-align: center;
+    border-radius: 1.6rem;
+
+    &:hover,
+    &:focus {
+      cursor: pointer;
+      background: rgba(182, 253, 255, 0.3);
+      outline: none;
+    }
+  }
+
+  &-1 {
+    grid-row: 2 / 3;
+    grid-column: 1 / 2;
+  }
+
+  &-2 {
+    grid-row: 2 / 3;
+    grid-column: 2 / 3;
+  }
+
+  &-3 {
+    grid-row: 2 / 3;
+    grid-column: 3 / -1;
+  }
+
+  &-img {
+    grid-row: 1 / 2;
+    grid-column: 2 / 3;
+    align-items: center;
+  }
+
+  &-stat-1 {
+    grid-row: 2 / 3;
+    grid-column: 1 / 2;
+    text-align: left;
+  }
+
+  &-stat-2 {
+    grid-row: 2 / 3;
+    grid-column: 3 / -1;
+    text-align: right;
+  }
+
+  &-stat-1,
+  &-stat-2 {
+    font-size: 1.1rem;
+  }
+
+  &-btn-count {
+    grid-row: 3 / -1;
+    grid-column: 2 / 3;
+    justify-self: center;
+    display: flex;
+    color: rgb(111, 246, 246);
+
+    &-counter {
+      padding: 0 1.5rem 0 1.5rem;
+    }
+  }
+
+  &-btn {
+    grid-row: 3 / 4;
+    grid-column: 2 / 3;
+
+    & > button {
+      @include feature-btn;
+    }
+  }
+}
+
+.font-l {
+  font-size: 3rem;
 }
