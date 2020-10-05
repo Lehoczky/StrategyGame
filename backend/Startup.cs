@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using backend.Data;
+using backend.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -33,7 +34,7 @@ namespace backend
                 Configuration.GetConnectionString("Database")
             ));
 
-            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            services.AddIdentity<ApplicationUser, IdentityRole<int>>(options =>
             {
                 options.Password.RequireDigit = false;
                 options.Password.RequireNonAlphanumeric = false;
@@ -63,10 +64,10 @@ namespace backend
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<ICountryRepository, CountryRepository>();
             services.AddScoped<IBuildingRepository, BuildingRepository>();
             services.AddScoped<IUnitRepository, UnitRepository>();
             services.AddScoped<IUpgradeRepository, UpgradeRepository>();
-            services.AddScoped<IPlayerRepository, PlayerRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

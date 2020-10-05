@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using backend.Models;
 
@@ -6,7 +7,7 @@ namespace backend.Data
 {
     public interface IUnitRepository
     {
-        IEnumerable<Unit> GetUnitsForPlayer(int userId);
+        IEnumerable<Unit> GetUnitsForUser(int userId);
     }
 
     public class UnitRepository : IUnitRepository
@@ -18,11 +19,13 @@ namespace backend.Data
             _context = context;
         }
 
-        public IEnumerable<Unit> GetUnitsForPlayer(int userId)
+        public IEnumerable<Unit> GetUnitsForUser(int userId)
         {
-            return _context.Units
-                .Where(unit => unit.PlayerId == userId)
-                .ToList();
+            var user = _context.Users
+                .Include(user => user.Country)
+                    .ThenInclude(country => country.Units)
+                .Single(user => user.Id == userId);
+            return user.Country.Units;
         }
     }
 }
