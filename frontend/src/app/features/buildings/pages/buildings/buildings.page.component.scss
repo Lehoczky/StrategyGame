@@ -15,35 +15,15 @@
   &-1 {
     grid-row: 2 / 3;
     grid-column: 1 / 2;
-    justify-self: center;
-    text-align: center;
-    padding: 1rem;
-    border-radius: 1rem;
-    width: 20rem;
-    height: 22rem;
-
-    display: grid;
-    grid-template-rows: 17rem 1fr;
-
-    &:hover,
-    &:focus {
-      cursor: pointer;
-      background: rgba(182, 253, 255, 0.3);
-      outline: none;
-    }
-
-    &-img {
-      grid-row: 1 / 2;
-    }
-
-    &-price {
-      grid-row: 2 / -1;
-    }
   }
 
   &-2 {
     grid-row: 2 / 3;
     grid-column: 2 / -1;
+  }
+
+  &-1,
+  &-2 {
     justify-self: center;
     text-align: center;
     padding: 1rem;
@@ -53,14 +33,6 @@
 
     display: grid;
     grid-template-rows: 17rem 1fr;
-
-    &-img {
-      grid-row: 1 / 2;
-    }
-
-    &-price {
-      grid-row: 2 / -1;
-    }
 
     &:hover,
     &:focus {
@@ -76,26 +48,7 @@
     text-align: center;
 
     & > button {
-      width: 17rem;
-      height: 4.5rem;
-      background: linear-gradient(
-        258deg,
-        #9ffff0 0%,
-        #6beee9 36%,
-        #0fcfde 100%
-      );
-      box-shadow: 0px 3px 6px #3b7dbd;
-      border-radius: 9rem;
-      font: normal normal normal 18px/28px Baloo;
-      color: #001234;
-
-      &:hover {
-        cursor: pointer;
-      }
-
-      &:focus {
-        outline: none;
-      }
+      @include feature-btn;
     }
   }
 

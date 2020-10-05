@@ -14,3 +14,21 @@
 
   display: grid;
 }
+
+@mixin feature-btn {
+  width: 17rem;
+  height: 4.5rem;
+  background: linear-gradient(258deg, #9ffff0 0%, #6beee9 36%, #0fcfde 100%);
+  box-shadow: 0px 3px 6px #3b7dbd;
+  border-radius: 9rem;
+  font: normal normal normal 18px/28px Baloo;
+  color: #001234;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
