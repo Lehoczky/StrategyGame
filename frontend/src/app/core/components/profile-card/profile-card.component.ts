@@ -1,21 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-profile-card',
   templateUrl: './profile-card.component.html',
-  styleUrls: ['./profile-card.component.scss']
+  styleUrls: ['./profile-card.component.scss'],
 })
-export class ProfileCardComponent implements OnInit {
+export class ProfileCardComponent {
+  constructor(
+    private router: Router,
+    private authenticationService: AuthService,
+  ) {}
 
-  constructor(private router: Router) { }
-
-  ngOnInit() {
+  onLogout(): void {
+    this.authenticationService.logout();
   }
-
-  onLogout() {
-    console.log('logging out...');
-    this.router.navigate(['auth']);
-  }
-
 }
