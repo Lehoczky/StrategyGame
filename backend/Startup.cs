@@ -59,6 +59,8 @@ namespace backend
                 };
             });
 
+            services.AddCors();
+
             services.AddSwaggerDocument();
             services.AddControllers();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -76,6 +78,12 @@ namespace backend
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseCors(builder => builder
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .SetIsOriginAllowed((host) => true)
+                    .AllowCredentials()
+                );
             }
 
             app.UseOpenApi();
