@@ -23,8 +23,9 @@ namespace backend.DTOs
         public string Password { get; set; }
     }
 
-    public class TokenResponseDto
+    public class AuthResponseDto
     {
+        public string Name { get; set; }
         public string Access { get; set; }
     }
 

@@ -14,8 +14,8 @@ namespace backend.Data
 {
     public interface IAuthRepository
     {
-        Task<TokenResponseDto> Register(RegistrationFormDto formData);
-        Task<TokenResponseDto> Login(LoginFormDto formData);
+        Task<AuthResponseDto> Register(RegistrationFormDto formData);
+        Task<AuthResponseDto> Login(LoginFormDto formData);
     }
 
     public class AuthRepository : IAuthRepository
@@ -27,10 +27,9 @@ namespace backend.Data
             _userManager = userManager;
         }
 
-        public async Task<TokenResponseDto> Login(LoginFormDto formData)
+        public async Task<AuthResponseDto> Login(LoginFormDto formData)
         {
             var user = await _userManager.FindByNameAsync(formData.UserName);
-            System.Console.WriteLine(user);
             if (user == null)
                 throw new ArgumentException("User with this name does not exist");
 
@@ -45,10 +44,10 @@ namespace backend.Data
             };
 
             var token = createJwtToken(claims);
-            return new TokenResponseDto { Access = token };
+            return new AuthResponseDto { Name = user.UserName, Access = token };
         }
 
-        public async Task<TokenResponseDto> Register(RegistrationFormDto formData)
+        public async Task<AuthResponseDto> Register(RegistrationFormDto formData)
         {
             if (formData == null)
                 throw new NullReferenceException("Form data is null");
@@ -72,7 +71,7 @@ namespace backend.Data
             };
 
             var token = createJwtToken(claims);
-            return new TokenResponseDto { Access = token };
+            return new AuthResponseDto { Name = identityUser.UserName, Access = token };
         }
 
         private string createJwtToken(IEnumerable<Claim> claims)
