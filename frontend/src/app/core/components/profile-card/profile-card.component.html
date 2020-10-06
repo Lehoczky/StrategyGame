@@ -1,8 +1,8 @@
-<section class="profile">
+<section *ngIf="user$ | async as user" class="profile">
   <div class="profile-image">
-    <img src="../../../../assets/svg/002-male.svg">
+    <img src="../../../../assets/svg/002-male.svg" />
   </div>
-  <div>usernév</div>
+  <div>{{ user.name }}</div>
   <div>profil</div>
   <div (click)="onLogout()">kijelentkezés</div>
 </section>

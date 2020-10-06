@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -8,10 +7,9 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./profile-card.component.scss'],
 })
 export class ProfileCardComponent {
-  constructor(
-    private router: Router,
-    private authenticationService: AuthService,
-  ) {}
+  user$ = this.authenticationService.currentUser$;
+
+  constructor(private authenticationService: AuthService) {}
 
   onLogout(): void {
     this.authenticationService.logout();
