@@ -9,4 +9,13 @@ namespace backend.DTOs
         public int AttackBonus { get; set; }
         public int TaxBonus { get; set; }
     }
+
+    public class UpgradeCreateDto
+    {
+        public string Name { get; set; }
+        public int CoralBonus { get; set; }
+        public int DefenseBonus { get; set; }
+        public int AttackBonus { get; set; }
+        public int TaxBonus { get; set; }
+    }
 }
