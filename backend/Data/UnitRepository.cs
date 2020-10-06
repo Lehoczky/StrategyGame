@@ -28,30 +28,6 @@ namespace backend.Data
             return user.Country.Units;
         }
 
-        public Unit GetUnitById(int id, int userId)
-        {
-            var user = FetchUserWithUnits(userId);
-            foreach (var unit in user.Country.Units)
-                if (unit.Id == id)
-                    return unit;
-            return null;
-        }
-
-        public void CreateUnitForUser(Unit unit, int userId)
-        {
-            var user = FetchUserWithUnits(userId);
-            user.Country.Units.Add(unit);
-            _context.SaveChanges();
-        }
-
-        private ApplicationUser FetchUserWithUnits(int userId)
-        {
-            return _context.Users
-                .Include(user => user.Country)
-                    .ThenInclude(country => country.Units)
-                .Single(user => user.Id == userId);
-        }
-
         public void CreateUnitsForUser(UnitCreateDto units, int userId)
         {
             var user = FetchUserWithUnits(userId);
