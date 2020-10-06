@@ -1,57 +1,56 @@
-<section class="stats">
-    <div class="font-primary">1.kör</div>
-    <div class="font-primary">14. hely</div>
-    <div class="flex">
-        <img src="../../../../assets/svg/007-shark.svg">
-        <div class="stats-grid">
-            <div class="font-primary">0</div>
-        </div>
+<section *ngIf="stat$ | async as stat" class="stats">
+  <div class="font-primary">1.kör</div>
+  <div class="font-primary">14. hely</div>
+  <div class="flex">
+    <img src="../../../../assets/svg/007-shark.svg" />
+    <div class="stats-grid">
+      <div class="font-primary">{{ stat.units.laserSharks }}</div>
     </div>
+  </div>
 
-    <div class="flex">
-        <img src="../../../../assets/svg/025-seal.svg">
-        <div class="stats-grid">
-            <div class="font-primary">1</div>
-        </div>
+  <div class="flex">
+    <img src="../../../../assets/svg/025-seal.svg" />
+    <div class="stats-grid">
+      <div class="font-primary">{{ stat.units.attackSeals }}</div>
     </div>
+  </div>
 
-    <div class="flex">
-        <img src="../../../../assets/svg/013-seahorse.svg">
-        <div class="stats-grid">
-            <div class="font-primary">2</div>
-        </div>
+  <div class="flex">
+    <img src="../../../../assets/svg/013-seahorse.svg" />
+    <div class="stats-grid">
+      <div class="font-primary">{{ stat.units.battleSeaHorses }}</div>
     </div>
+  </div>
 
-    <div class="flex">
-        <img src="../../../../assets/svg/shell.svg">
-        <div class="stats-grid">
-            <div class="font-primary">200</div>
-            <div class="font-secondary">20/kör</div>
-        </div>
+  <div class="flex">
+    <img src="../../../../assets/svg/shell.svg" />
+    <div class="stats-grid">
+      <div class="font-primary">{{ stat.country.pearls }}</div>
+      <div class="font-secondary">20/kör</div>
     </div>
+  </div>
 
-    <div class="flex">
-        <img src="../../../../assets/svg/018-coral.svg">
-        <div class="stats-grid">
-            <div class="font-primary">300</div>
-            <div class="font-secondary">12/kör</div>
-        </div>
+  <div class="flex">
+    <img src="../../../../assets/svg/018-coral.svg" />
+    <div class="stats-grid">
+      <div class="font-primary">{{ stat.country.coralls }}</div>
+      <div class="font-secondary">12/kör</div>
     </div>
+  </div>
 
-    <div class="flex">
-        <img src="../../../../assets/svg/castle-building.svg">
-        <div class="stats-grid">
-            <div class="font-primary">1</div>
-            <div class="font-secondary">0 épül</div>
-        </div>
+  <div class="flex">
+    <img src="../../../../assets/svg/castle-building.svg" />
+    <div class="stats-grid">
+      <div class="font-primary">{{ stat.buildings.reefCastles }}</div>
+      <div class="font-secondary">0 épül</div>
     </div>
+  </div>
 
-    <div class="flex">
-        <img src="../../../../assets/svg/control-building.svg">
-        <div class="stats-grid">
-            <div class="font-primary">0</div>
-            <div class="font-secondary">0 épül</div>
-        </div>
+  <div class="flex">
+    <img src="../../../../assets/svg/control-building.svg" />
+    <div class="stats-grid">
+      <div class="font-primary">{{ stat.buildings.flowControllers }}</div>
+      <div class="font-secondary">0 épül</div>
     </div>
-
+  </div>
 </section>
