@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using backend.Models;
+using System;
 
 namespace backend.Data
 {
@@ -9,7 +10,7 @@ namespace backend.Data
     {
         IEnumerable<Building> GetBuildingsForUser(int userId);
         Building GetBuildingById(int buildingId, int userId);
-        void CreateBuildingForUser(Building building, int userId);
+        Building CreateBuildingForUser(string buildingType, int userId);
     }
 
     public class BuildingRepository : IBuildingRepository
@@ -36,11 +37,13 @@ namespace backend.Data
             return null;
         }
 
-        public void CreateBuildingForUser(Building building, int userId)
+        public Building CreateBuildingForUser(string buildingType, int userId)
         {
             var user = FetchUserWithBuildings(userId);
+            var building = ModelForType(buildingType);
             user.Country.Buildings.Add(building);
             _context.SaveChanges();
+            return building;
         }
 
         private ApplicationUser FetchUserWithBuildings(int userId)
@@ -49,6 +52,33 @@ namespace backend.Data
                 .Include(user => user.Country)
                     .ThenInclude(country => country.Buildings)
                 .Single(user => user.Id == userId);
+        }
+
+        private Building ModelForType(string type)
+        {
+            switch (type)
+            {
+                case "flowController":
+                    return new Building
+                    {
+                        Name = "áramlásirányító",
+                        Price = 1000,
+                        Population = 50,
+                        Units = 0,
+                        CoralPerTurn = 200
+                    };
+                case "reefCastle":
+                    return new Building
+                    {
+                        Name = "zátonyvár",
+                        Price = 1000,
+                        Population = 0,
+                        Units = 200,
+                        CoralPerTurn = 0
+                    };
+                default:
+                    throw new ArgumentException("Invalid building type");
+            }
         }
     }
 }

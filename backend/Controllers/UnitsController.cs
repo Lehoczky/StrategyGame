@@ -32,30 +32,21 @@ namespace backend.Controllesrs
             return Ok(_mapper.Map<IEnumerable<UnitReadDto>>(units));
         }
 
-        [HttpGet("{id}", Name = "GetUnitById")]
-        public ActionResult<UnitReadDto> GetUnitById(int id)
-        {
-            var userId = Int32.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            var unit = _repository.GetUnitById(id, userId);
-
-            if (unit != null)
-                return Ok(_mapper.Map<UnitReadDto>(unit));
-            return NotFound();
-        }
-
         [HttpPost]
-        public ActionResult<UnitReadDto> CreateUnitForUser([FromBody] UnitCreateDto unit)
+        public IActionResult CreateUnitsForUser([FromBody] UnitCreateDto units)
         {
             var userId = Int32.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            var unitModel = _mapper.Map<Unit>(unit);
 
-            _repository.CreateUnitForUser(unitModel, userId);
-            return CreatedAtRoute
-            (
-                nameof(GetUnitById),
-                new { Id = unitModel.Id },
-                _mapper.Map<UnitReadDto>(unitModel)
-            );
+            try
+            {
+                _repository.CreateUnitsForUser(units, userId);
+                return Created("", new { });
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest(new ErrorResponseDto { Message = e.Message });
+            }
+
         }
     }
 }
