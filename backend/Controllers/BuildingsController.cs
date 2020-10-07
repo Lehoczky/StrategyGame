@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using AutoMapper;
 using backend.Data;
 using backend.DTOs;
@@ -23,18 +24,18 @@ namespace backend.Controllesrs
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<BuildingReadDto>> GetBuildingsForUser()
+        public async Task<ActionResult<IEnumerable<BuildingReadDto>>>  GetBuildingsForUser()
         {
             var userId = Helpers.IdForUser(User);
-            var buildings = _repository.GetBuildingsForUser(userId);
+            var buildings = await _repository.GetBuildingsForUser(userId);
             return Ok(_mapper.Map<IEnumerable<BuildingReadDto>>(buildings));
         }
 
         [HttpGet("{id}", Name = "GetBuildingById")]
-        public ActionResult<BuildingReadDto> GetBuildingById(int id)
+        public async Task<ActionResult<BuildingReadDto>> GetBuildingById(int id)
         {
             var userId = Helpers.IdForUser(User);
-            var building = _repository.GetBuildingById(id, userId);
+            var building = await _repository.GetBuildingById(id, userId);
 
             if (building != null)
                 return Ok(_mapper.Map<BuildingReadDto>(building));
@@ -42,15 +43,14 @@ namespace backend.Controllesrs
         }
 
         [HttpPost]
-        public ActionResult<BuildingReadDto> CreateBuildingForUser([FromBody] BuildingCreateDto building)
+        public async Task<ActionResult<BuildingReadDto>> CreateBuildingForUser([FromBody] BuildingCreateDto building)
         {
             var userId = Helpers.IdForUser(User);
 
             try
             {
-                var model = _repository.CreateBuildingForUser(building.Name, userId);
-                return CreatedAtRoute
-                (
+                var model = await _repository.CreateBuildingForUser(building.Name, userId);
+                return CreatedAtRoute(
                     nameof(GetBuildingById),
                     new { Id = model.Id },
                     _mapper.Map<BuildingReadDto>(model)

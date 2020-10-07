@@ -3,14 +3,15 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using backend.Models;
 using System;
+using System.Threading.Tasks;
 
 namespace backend.Data
 {
     public interface IBuildingRepository
     {
-        IEnumerable<Building> GetBuildingsForUser(int userId);
-        Building GetBuildingById(int buildingId, int userId);
-        Building CreateBuildingForUser(string buildingType, int userId);
+        Task<IEnumerable<Building>> GetBuildingsForUser(int userId);
+        Task<Building> GetBuildingById(int buildingId, int userId);
+        Task<Building> CreateBuildingForUser(string buildingType, int userId);
     }
 
     public class BuildingRepository : IBuildingRepository
@@ -22,36 +23,36 @@ namespace backend.Data
             _context = context;
         }
 
-        public IEnumerable<Building> GetBuildingsForUser(int userId)
+        public async Task<IEnumerable<Building>> GetBuildingsForUser(int userId)
         {
-            var user = FetchUserWithBuildings(userId);
+            var user = await FetchUserWithBuildings(userId);
             return user.Country.Buildings;
         }
 
-        public Building GetBuildingById(int id, int userId)
+        public async Task<Building> GetBuildingById(int id, int userId)
         {
-            var user = FetchUserWithBuildings(userId);
+            var user = await FetchUserWithBuildings(userId);
             foreach (var building in user.Country.Buildings)
                 if (building.Id == id)
                     return building;
             return null;
         }
 
-        public Building CreateBuildingForUser(string buildingType, int userId)
+        public async Task<Building> CreateBuildingForUser(string buildingType, int userId)
         {
-            var user = FetchUserWithBuildings(userId);
+            var user = await FetchUserWithBuildings(userId);
             var building = ModelForType(buildingType);
             user.Country.Buildings.Add(building);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return building;
         }
 
-        private ApplicationUser FetchUserWithBuildings(int userId)
+        private async Task<ApplicationUser> FetchUserWithBuildings(int userId)
         {
-            return _context.Users
+            return await _context.Users
                 .Include(user => user.Country)
                     .ThenInclude(country => country.Buildings)
-                .Single(user => user.Id == userId);
+                .SingleOrDefaultAsync(user => user.Id == userId);
         }
 
         private Building ModelForType(string type)
