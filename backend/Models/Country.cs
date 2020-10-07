@@ -2,9 +2,8 @@ using System.Collections.Generic;
 
 namespace backend.Models
 {
-    public class Country
+    public class Country : BaseModel
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public int Pearls { get; set; }
         public int Coralls { get; set; }

@@ -1,8 +1,7 @@
 namespace backend.Models
 {
-    public class Unit
+    public class Unit : BaseModel
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public int Price { get; set; }
         public int Attack { get; set; }
