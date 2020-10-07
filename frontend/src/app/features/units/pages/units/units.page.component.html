@@ -1,39 +1,43 @@
-<section class="units">
+<section *ngIf="units$ | async as units" class="units">
   <div class="units-heading">
     <p class="font-l">Sereg</p>
-      Kattints rá, amelyiket szeretnéd megvenni.
+    Kattints rá, amelyiket szeretnéd megvenni.
   </div>
 
-  <div *ngFor="let unit of unitsInStore; let i = index" [class]="'units-'+(i + 1)">
+  <div *ngFor="let unit of units; let i = index" [class]="'units-' + (i + 1)">
     <div class="units-img">
-      <div><img [src]="unit.img"></div>
-      <span>{{unit.name}}</span>
+      <div><img [src]="unit.img" /></div>
+      <span>{{ unit.name }}</span>
     </div>
 
     <div class="units-stat-1">
-      Birtokodban:<br>
-      Támadás/Védekezés<br>
-      Zsold(/kör/egység)<br>
-      Ellátmány(/kör/egység)<br>
-      Ár<br>
+      Birtokodban:<br />
+      Támadás/Védekezés<br />
+      Zsold(/kör/egység)<br />
+      Ellátmány(/kör/egység)<br />
+      Ár<br />
     </div>
 
     <div class="units-stat-2">
-      {{unit.owned}} db<br>
-      {{unit.attack}}/{{unit.defense}}<br>
-      {{unit.costPerTurn}} Gyöngy<br>
-      {{unit.coralPerTurn}} Korall<br>
-      {{unit.price}} Gyöngy<br>
+      {{ unit.owned }} db<br />
+      {{ unit.attack }}/{{ unit.defense }}<br />
+      {{ unit.costPerTurn }} Gyöngy<br />
+      {{ unit.coralPerTurn }} Korall<br />
+      {{ unit.price }} Gyöngy<br />
     </div>
 
     <div class="units-btn-count">
-      <span class="material-icons" (click)="manageAmount(unit.name,-1)">remove_circle</span>
-      <span class="units-btn-count-counter">{{unit.amountToBuy}}</span>
-      <span class="material-icons" (click)="manageAmount(unit.name,1)">add_circle</span>
+      <span class="material-icons" (click)="manageAmount(unit.typeName, -1)"
+        >remove_circle</span
+      >
+      <span class="units-btn-count-counter">{{ toBuy[unit.typeName] }}</span>
+      <span class="material-icons" (click)="manageAmount(unit.typeName, 1)"
+        >add_circle</span
+      >
     </div>
   </div>
 
   <div class="units-btn">
-    <button>Megveszem</button>
+    <button (click)="purchaseUnits()">Megveszem</button>
   </div>
 </section>
