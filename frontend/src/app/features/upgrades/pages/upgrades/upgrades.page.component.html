@@ -8,63 +8,14 @@
     </p>
   </div>
 
-  <div class="upgrades-1">
-    <span class="upgrades-info">még 15 kör</span>
+  <div *ngFor="let upgrade of upgradesInStore; let i = index" [class]="'upgrades-' + (i + 1)"
+    [ngClass]="{'upgrades-selected': selectedIndex === i}" (click)="selectUpgrade(i)">
+    <span *ngIf="upgrade.owned" class="upgrades-info">még 15 kör</span>
     <div>
-      <img src="../../../../../assets/img/undersea_game-09.png">
-    </div>
-    <div>
-      Iszaptraktor<br><span class="font-s">növeli a korall<br>termesztését 10%-kal</span>
-    </div>
-  </div>
-
-  <div class="upgrades-2">
-    <span class="upgrades-info">még 15 kör</span>
-    <div>
-      <img src="../../../../../assets/img/undersea_game-10.png">
-    </div>
-    <div>
-      Iszapkombájn<br><span class="font-s">növeli a korall<br>termesztését 15%-kal</span>
-    </div>
-  </div>
-
-  <div class="upgrades-3">
-    <span class="upgrades-info">még 15 kör</span>
-    <div>
-      <img src="../../../../../assets/img/undersea_game-03.png">
-    </div>
-    <div>
-      Korallfal<br><span class="font-s">növeli a védelmi<br>pontokat 20%-kal</span>
-    </div>
-  </div>
-
-  <div class="upgrades-4">
-    <span class="upgrades-info">még 15 kör</span>
-    <div>
-      <img src="../../../../../assets/img/undersea_game-03.png">
-    </div>
-    <div>
-      Szonárágyú<br><span class="font-s">növeli a támadópontokat<br>20%-kal</span>
-    </div>
-  </div>
-
-  <div class="upgrades-5">
-    <span class="upgrades-info">még 15 kör</span>
-    <div>
-      <img src="../../../../../assets/img/undersea_game-03.png">
-    </div>
-    <div>
-      Vízalatti harcművészetek<br><span class="font-s">növeli a védelmi és<br>támadóerőt 10%-kal</span>
-    </div>
-  </div>
-
-  <div class="upgrades-6">
-    <span class="upgrades-info">még 15 kör</span>
-    <div>
-      <img src="../../../../../assets/img/undersea_game-03.png">
-    </div>
-    <div>
-      Alkímia<br><span class="font-s">növeli a beszedett<br>adót 30%-kal</span>
+      <img [src]="upgrade.img">
+      <div>
+        {{upgrade.name}}<br><span class="font-s">{{upgrade.description}}</span>
+      </div>
     </div>
   </div>
 

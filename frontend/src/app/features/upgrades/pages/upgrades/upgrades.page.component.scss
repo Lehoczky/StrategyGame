@@ -1,4 +1,4 @@
-@import "../../../../../scss/mixins.scss";
+@import '../../../../../scss/mixins.scss';
 
 .upgrades {
   @include feature-box;
@@ -60,11 +60,11 @@
 
     padding: 1rem;
     border-radius: 1.6rem;
-    &:hover,
-    &:focus {
+    margin: 1rem;
+
+    &:hover {
       cursor: pointer;
       background: rgba(182, 253, 255, 0.3);
-      outline: none;
     }
   }
 
@@ -72,6 +72,10 @@
     position: absolute;
     left: 2%;
     top: 3%;
+  }
+
+  &-selected {
+    background: rgba(182, 253, 255, 0.3);
   }
 
   &-btn {
