@@ -31,11 +31,15 @@ namespace backend.Data
         {
             var user = await _userManager.FindByNameAsync(formData.UserName);
             if (user == null)
+            {
                 throw new ArgumentException("User with this name does not exist");
+            }
 
             var result = await _userManager.CheckPasswordAsync(user, formData.Password);
             if (!result)
+            {
                 throw new ArgumentException("Incorrect password");
+            }
 
             var claims = new[]
             {
@@ -50,7 +54,9 @@ namespace backend.Data
         public async Task<AuthResponseDto> Register(RegistrationFormDto formData)
         {
             if (formData == null)
+            {
                 throw new NullReferenceException("Form data is null");
+            }
 
             var identityUser = new ApplicationUser { UserName = formData.UserName };
             identityUser.Country = new Country { Name = formData.Country, Pearls = 0, Coralls = 0 };
