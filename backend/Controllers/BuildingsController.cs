@@ -4,7 +4,6 @@ using System.Security.Claims;
 using AutoMapper;
 using backend.Data;
 using backend.DTOs;
-using backend.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -47,15 +46,22 @@ namespace backend.Controllesrs
         public ActionResult<BuildingReadDto> CreateBuildingForUser([FromBody] BuildingCreateDto building)
         {
             var userId = Int32.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            var buildingModel = _mapper.Map<Building>(building);
 
-            _repository.CreateBuildingForUser(buildingModel, userId);
-            return CreatedAtRoute
-            (
-                nameof(GetBuildingById),
-                new { Id = buildingModel.Id },
-                _mapper.Map<BuildingReadDto>(buildingModel)
-            );
+            try
+            {
+                var model = _repository.CreateBuildingForUser(building.Name, userId);
+                return CreatedAtRoute
+                (
+                    nameof(GetBuildingById),
+                    new { Id = model.Id },
+                    _mapper.Map<BuildingReadDto>(model)
+                );
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest(new ErrorResponseDto { Message = e.Message });
+            }
+
         }
     }
 }

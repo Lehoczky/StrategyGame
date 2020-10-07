@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using backend.Models;
+using backend.DTOs;
+using System;
 
 namespace backend.Data
 {
@@ -9,7 +11,7 @@ namespace backend.Data
     {
         IEnumerable<Upgrade> GetUpgradesForUser(int userId);
         Upgrade GetUpgradeById(int upgradeId, int userId);
-        void CreateUpgradeForUser(Upgrade upgrade, int userId);
+        Upgrade CreateUpgradeForUser(UpgradeCreateDto upgrade, int userId);
     }
 
     public class UpgradeRepository : IUpgradeRepository
@@ -36,11 +38,13 @@ namespace backend.Data
             return null;
         }
 
-        public void CreateUpgradeForUser(Upgrade upgrade, int userId)
+        public Upgrade CreateUpgradeForUser(UpgradeCreateDto upgrade, int userId)
         {
             var user = FetchUserWithUpgrades(userId);
-            user.Country.Upgrades.Add(upgrade);
+            var upgradeModel = ModelForType(upgrade.Name);
+            user.Country.Upgrades.Add(upgradeModel);
             _context.SaveChanges();
+            return upgradeModel;
         }
 
         private ApplicationUser FetchUserWithUpgrades(int userId)
@@ -49,6 +53,69 @@ namespace backend.Data
                 .Include(user => user.Country)
                     .ThenInclude(country => country.Upgrades)
                 .Single(user => user.Id == userId);
+        }
+
+        private Upgrade ModelForType(string type)
+        {
+            switch (type)
+            {
+                case "mudTractor":
+                    return new Upgrade
+                    {
+                        Name = "iszaptraktor",
+                        CoralBonus = 10,
+                        DefenseBonus = 0,
+                        AttackBonus = 0,
+                        TaxBonus = 0
+                    };
+                case "mudCombine":
+                    return new Upgrade
+                    {
+                        Name = "iszapkombájn",
+                        CoralBonus = 15,
+                        DefenseBonus = 0,
+                        AttackBonus = 0,
+                        TaxBonus = 0
+                    };
+                case "coralWall":
+                    return new Upgrade
+                    {
+                        Name = "korallfal",
+                        CoralBonus = 0,
+                        DefenseBonus = 20,
+                        AttackBonus = 0,
+                        TaxBonus = 0
+                    };
+                case "sonarCannon":
+                    return new Upgrade
+                    {
+                        Name = "szonár ágyú",
+                        CoralBonus = 0,
+                        DefenseBonus = 0,
+                        AttackBonus = 20,
+                        TaxBonus = 0
+                    };
+                case "undergroundMartialArts":
+                    return new Upgrade
+                    {
+                        Name = "vízalatti harcművészetek",
+                        CoralBonus = 0,
+                        DefenseBonus = 10,
+                        AttackBonus = 10,
+                        TaxBonus = 0
+                    };
+                case "alchemy":
+                    return new Upgrade
+                    {
+                        Name = "alkímia",
+                        CoralBonus = 0,
+                        DefenseBonus = 0,
+                        AttackBonus = 0,
+                        TaxBonus = 30
+                    };
+                default:
+                    throw new ArgumentException("Invalid upgrade type");
+            }
         }
     }
 }

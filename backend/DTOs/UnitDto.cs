@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace backend.DTOs
 {
     public class UnitReadDto
@@ -13,10 +15,9 @@ namespace backend.DTOs
 
     public class UnitCreateDto
     {
-        public int Price { get; set; }
-        public int Attack { get; set; }
-        public int Defense { get; set; }
-        public int CostPerTurn { get; set; }
-        public int CoralPerTurn { get; set; }
+        [Required]
+        public string Name { get; set; }
+        [Required]
+        public int Count { get; set; }
     }
 }

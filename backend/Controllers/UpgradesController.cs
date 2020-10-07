@@ -47,15 +47,20 @@ namespace backend.Controllesrs
         public ActionResult<UpgradeReadDto> CreateUpgradeForUser([FromBody] UpgradeCreateDto upgrade)
         {
             var userId = Int32.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            var upgradeModel = _mapper.Map<Upgrade>(upgrade);
-
-            _repository.CreateUpgradeForUser(upgradeModel, userId);
-            return CreatedAtRoute
-            (
-                nameof(GetUpgradeById),
-                new { Id = upgradeModel.Id },
-                _mapper.Map<UpgradeReadDto>(upgradeModel)
-            );
+            try
+            {
+                var upgradeModel = _repository.CreateUpgradeForUser(upgrade, userId);
+                return CreatedAtRoute
+                (
+                    nameof(GetUpgradeById),
+                    new { Id = upgradeModel.Id },
+                    _mapper.Map<UpgradeReadDto>(upgradeModel)
+                );
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest(new ErrorResponseDto { Message = e.Message });
+            }
         }
     }
 }
