@@ -16,7 +16,8 @@ const routes: Routes = [
       { path: 'features/leaderboard', loadChildren: './features/leaderboard/leaderboard.module#LeaderboardModule' },
       { path: 'features/units', loadChildren: './features/units/units.module#UnitsModule' }
     ]
-  }
+  },
+  { path: '**', redirectTo: '/strategy', pathMatch: 'full' }
 ];
 
 @NgModule({
