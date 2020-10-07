@@ -11,8 +11,8 @@ namespace backend.Models
         public int UserId { get; set; }
         public virtual ApplicationUser User { get; set; }
 
-        public virtual ICollection<Building> Buildings { get; set; }
-        public virtual ICollection<Unit> Units { get; set; }
-        public virtual ICollection<Upgrade> Upgrades { get; set; }
+        public virtual ICollection<CountryBuilding> Buildings { get; set; }
+        public virtual ICollection<CountryUnit> Units { get; set; }
+        public virtual ICollection<CountryUpgrade> Upgrades { get; set; }
     }
 }
