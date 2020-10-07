@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using AutoMapper;
 using backend.Data;
 using backend.DTOs;
@@ -21,10 +22,10 @@ namespace backend.Controllesrs
         }
 
         [HttpGet]
-        public ActionResult<CountryReadDto> GetCountryForUser()
+        public async Task<ActionResult<CountryReadDto>> GetCountryForUser()
         {
             var userId = Helpers.IdForUser(User);
-            var country = _repository.GetCountryForUser(userId);
+            var country = await _repository.GetCountryForUser(userId);
             return Ok(_mapper.Map<CountryReadDto>(country));
         }
     }

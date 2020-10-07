@@ -2,12 +2,13 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using backend.Models;
+using System.Threading.Tasks;
 
 namespace backend.Data
 {
     public interface ICountryRepository
     {
-        Country GetCountryForUser(int userId);
+        Task<Country> GetCountryForUser(int userId);
     }
 
     public class CountryRepository : ICountryRepository
@@ -19,11 +20,11 @@ namespace backend.Data
             _context = context;
         }
 
-        public Country GetCountryForUser(int userId)
+        public async Task<Country> GetCountryForUser(int userId)
         {
-            var user = _context.Users
+            var user = await _context.Users
                 .Include(user => user.Country)
-                .Single(user => user.Id == userId);
+                .SingleOrDefaultAsync(user => user.Id == userId);
             return user.Country;
         }
     }

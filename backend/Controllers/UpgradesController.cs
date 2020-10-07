@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using AutoMapper;
 using backend.Data;
 using backend.DTOs;
@@ -23,18 +24,18 @@ namespace backend.Controllesrs
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<UpgradeReadDto>> GetUpgradesForUser()
+        public async Task<ActionResult<IEnumerable<UpgradeReadDto>>> GetUpgradesForUser()
         {
             var userId = Helpers.IdForUser(User);
-            var upgrades = _repository.GetUpgradesForUser(userId);
+            var upgrades = await _repository.GetUpgradesForUser(userId);
             return Ok(_mapper.Map<IEnumerable<UpgradeReadDto>>(upgrades));
         }
 
         [HttpGet("{id}", Name = "GetUpgradeById")]
-        public ActionResult<UpgradeReadDto> GetUpgradeById(int id)
+        public async Task<ActionResult<UpgradeReadDto>> GetUpgradeById(int id)
         {
             var userId = Helpers.IdForUser(User);
-            var upgrade = _repository.GetUpgradeById(id, userId);
+            var upgrade = await _repository.GetUpgradeById(id, userId);
 
             if (upgrade != null)
             {
@@ -44,14 +45,13 @@ namespace backend.Controllesrs
         }
 
         [HttpPost]
-        public ActionResult<UpgradeReadDto> CreateUpgradeForUser([FromBody] UpgradeCreateDto upgrade)
+        public async Task <ActionResult<UpgradeReadDto>> CreateUpgradeForUser([FromBody] UpgradeCreateDto upgrade)
         {
             var userId = Helpers.IdForUser(User);
             try
             {
-                var upgradeModel = _repository.CreateUpgradeForUser(upgrade, userId);
-                return CreatedAtRoute
-                (
+                var upgradeModel = await _repository.CreateUpgradeForUser(upgrade, userId);
+                return CreatedAtRoute(
                     nameof(GetUpgradeById),
                     new { Id = upgradeModel.Id },
                     _mapper.Map<UpgradeReadDto>(upgradeModel)

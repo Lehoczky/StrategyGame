@@ -4,14 +4,15 @@ using System.Linq;
 using backend.Models;
 using backend.DTOs;
 using System;
+using System.Threading.Tasks;
 
 namespace backend.Data
 {
     public interface IUpgradeRepository
     {
-        IEnumerable<Upgrade> GetUpgradesForUser(int userId);
-        Upgrade GetUpgradeById(int upgradeId, int userId);
-        Upgrade CreateUpgradeForUser(UpgradeCreateDto upgrade, int userId);
+        Task<IEnumerable<Upgrade>> GetUpgradesForUser(int userId);
+        Task<Upgrade> GetUpgradeById(int upgradeId, int userId);
+        Task<Upgrade> CreateUpgradeForUser(UpgradeCreateDto upgrade, int userId);
     }
 
     public class UpgradeRepository : IUpgradeRepository
@@ -23,15 +24,15 @@ namespace backend.Data
             _context = context;
         }
 
-        public IEnumerable<Upgrade> GetUpgradesForUser(int userId)
+        public async Task<IEnumerable<Upgrade>> GetUpgradesForUser(int userId)
         {
-            var user = FetchUserWithUpgrades(userId);
+            var user = await FetchUserWithUpgrades(userId);
             return user.Country.Upgrades;
         }
 
-        public Upgrade GetUpgradeById(int id, int userId)
+        public async Task<Upgrade> GetUpgradeById(int id, int userId)
         {
-            var user = FetchUserWithUpgrades(userId);
+            var user = await FetchUserWithUpgrades(userId);
             foreach (var upgrade in user.Country.Upgrades)
             {
                 if (upgrade.Id == id)
@@ -42,21 +43,21 @@ namespace backend.Data
             return null;
         }
 
-        public Upgrade CreateUpgradeForUser(UpgradeCreateDto upgrade, int userId)
+        public async Task<Upgrade> CreateUpgradeForUser(UpgradeCreateDto upgrade, int userId)
         {
-            var user = FetchUserWithUpgrades(userId);
+            var user = await FetchUserWithUpgrades(userId);
             var upgradeModel = ModelForType(upgrade.Name);
             user.Country.Upgrades.Add(upgradeModel);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return upgradeModel;
         }
 
-        private ApplicationUser FetchUserWithUpgrades(int userId)
+        private async Task<ApplicationUser> FetchUserWithUpgrades(int userId)
         {
-            return _context.Users
+            return await _context.Users
                 .Include(user => user.Country)
                     .ThenInclude(country => country.Upgrades)
-                .Single(user => user.Id == userId);
+                .SingleOrDefaultAsync(user => user.Id == userId);
         }
 
         private Upgrade ModelForType(string type)
