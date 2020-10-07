@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UnitService } from 'src/app/core/services/unit.service';
+import { UnitService } from 'src/app/features/units/unit.service';
 
 @Component({
   templateUrl: './units.page.component.html',

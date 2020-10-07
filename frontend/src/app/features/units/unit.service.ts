@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { filter, switchMap, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { AuthService } from './auth.service';
-import { Unit } from '../models/unit.model';
+import { AuthService } from '../../core/services/auth.service';
+import { Unit } from './unit.model';
 import { BehaviorSubject } from 'rxjs';
 
 class UnitsByCount {

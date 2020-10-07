@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { AuthService } from './auth.service';
+import { AuthService } from '../../core/services/auth.service';
 import { tap, filter, switchMap, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { Upgrade } from '../models/upgrade.model';
+import { Upgrade } from './upgrade.model';
 
 class UpgradesState {
   mudTractor: boolean;

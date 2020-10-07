@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UpgradeService } from 'src/app/core/services/upgrade.service';
+import { UpgradeService } from 'src/app/features/upgrades/upgrade.service';
 
 @Component({
   templateUrl: './upgrades.page.component.html',

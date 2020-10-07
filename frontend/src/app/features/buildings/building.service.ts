@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { AuthService } from './auth.service';
+import { AuthService } from '../../core/services/auth.service';
 import { filter, switchMap, map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Building } from '../models/building.model';
+import { Building } from './building.model';
 import { BehaviorSubject } from 'rxjs';
 
 class BuildingsByCount {

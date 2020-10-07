@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BuildingService } from 'src/app/core/services/building.service';
+import { BuildingService } from 'src/app/features/buildings/building.service';
 
 @Component({
   templateUrl: './buildings.page.component.html',

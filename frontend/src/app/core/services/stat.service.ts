@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { BuildingService } from './building.service';
+import { BuildingService } from '../../features/buildings/building.service';
 import { CountryService } from './country.service';
-import { UnitService } from './unit.service';
+import { UnitService } from '../../features/units/unit.service';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 
