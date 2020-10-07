@@ -38,7 +38,9 @@ namespace backend.Controllesrs
             var building = await _repository.GetBuildingById(id, userId);
 
             if (building != null)
+            {
                 return Ok(_mapper.Map<BuildingReadDto>(building));
+            }
             return NotFound();
         }
 

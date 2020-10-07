@@ -33,8 +33,12 @@ namespace backend.Data
         {
             var user = FetchUserWithUpgrades(userId);
             foreach (var upgrade in user.Country.Upgrades)
+            {
                 if (upgrade.Id == id)
+                {
                     return upgrade;
+                }
+            }
             return null;
         }
 

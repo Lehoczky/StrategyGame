@@ -33,8 +33,12 @@ namespace backend.Data
         {
             var user = await FetchUserWithBuildings(userId);
             foreach (var building in user.Country.Buildings)
+            {
                 if (building.Id == id)
+                {
                     return building;
+                }
+            }
             return null;
         }
 

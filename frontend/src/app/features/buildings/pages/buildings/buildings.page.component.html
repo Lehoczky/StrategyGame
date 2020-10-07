@@ -1,31 +1,35 @@
-<section class="buildings">
+<section *ngIf="buildings$ | async as buildings" class="buildings">
   <div class="buildings-heading">
     <p class="font-l">Épületek</p>
     <p class="font-m">
-      Kattints rá, amelyiket szeretnéd megvenni.<br>
+      Kattints rá, amelyiket szeretnéd megvenni.<br />
       Egyszerre csak egy épület épülhet!
     </p>
   </div>
 
-
-  <div *ngFor="let building of buildingsInStore; let i = index" [class]="'buildings-'+(i + 1)"
-    [ngClass]="{'buildings-selected': i === selectedIndex}" (click)="selectBuilding(i)">
+  <div
+    *ngFor="let building of buildings; let i = index"
+    [class]="'buildings-' + (i + 1)"
+    [ngClass]="{ 'buildings-selected': i === selectedIndex }"
+    (click)="selectBuilding(i, building)"
+  >
     <div>
-      <img class="buildings-img" [src]="building.img">
-      <p>{{building.name}}<br>
-        {{building.description}}
+      <img class="buildings-img" [src]="building.img" />
+      <p>
+        {{ building.name }}<br />
+        {{ building.description }}
       </p>
     </div>
 
     <div>
       <p>
-        {{building.owned}} db<br>
-        {{building.price}} gyöngy / db
+        {{ building.owned }} db<br />
+        {{ building.price }} gyöngy / db
       </p>
     </div>
   </div>
 
   <div class="buildings-btn">
-    <button>Megveszem</button>
+    <button (click)="purchaseBuilding()">Megveszem</button>
   </div>
 </section>

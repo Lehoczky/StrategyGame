@@ -37,7 +37,9 @@ namespace backend.Controllesrs
             var upgrade = _repository.GetUpgradeById(id, userId);
 
             if (upgrade != null)
+            {
                 return Ok(_mapper.Map<UpgradeReadDto>(upgrade));
+            }
             return NotFound();
         }
 

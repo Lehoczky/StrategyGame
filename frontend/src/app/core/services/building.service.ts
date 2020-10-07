@@ -6,22 +6,52 @@ import { environment } from 'src/environments/environment';
 import { Building } from '../models/building.model';
 import { BehaviorSubject } from 'rxjs';
 
-class Buildings {
-  flowControllers: number;
-  reefCastles: number;
+class BuildingsByCount {
+  flowController: number;
+  reefCastle: number;
 }
 
-const initialState: Buildings = {
-  flowControllers: 0,
-  reefCastles: 0,
+const initialState: BuildingsByCount = {
+  flowController: 0,
+  reefCastle: 0,
 };
 
 @Injectable({
   providedIn: 'root',
 })
 export class BuildingService {
-  private buildingsSubject$ = new BehaviorSubject<Buildings>(initialState);
+  private buildingsSubject$ = new BehaviorSubject<BuildingsByCount>(
+    initialState,
+  );
   buildings$ = this.buildingsSubject$.asObservable();
+  buildingsWithDescription$ = this.buildings$.pipe(
+    map(buildings => {
+      return [
+        {
+          name: 'Áramlásirányító',
+          typeName: 'flowController',
+          price: 1000,
+          units: 0,
+          population: 50,
+          coralPerTurn: 200,
+          owned: buildings.flowController,
+          img: '../../../../../../assets/img/undersea_game-05.png',
+          description: `50 embert ad a népességhez. 200 korallt termel körönként`,
+        },
+        {
+          name: 'Zátonyvár',
+          typeName: 'reefCastle',
+          price: 1000,
+          units: 200,
+          population: 0,
+          coralPerTurn: 0,
+          owned: buildings.reefCastle,
+          img: '../../../../../../assets/img/undersea_game-07.png',
+          description: '200 egységnek nyújt szállást',
+        },
+      ] as Array<Building>;
+    }),
+  );
 
   private buildingsUrl = `${environment.apiUrl}/buildings`;
 
@@ -47,7 +77,7 @@ export class BuildingService {
         const currentState = this.buildingsSubject$.getValue();
         const newState = {
           ...currentState,
-          buildingType: currentState[buildingType] + 1,
+          [buildingType]: currentState[buildingType] + 1,
         };
         this.buildingsSubject$.next(newState);
       });
@@ -58,12 +88,12 @@ export class BuildingService {
   }
 
   private countByType(buildings: Array<Building>) {
-    let flowControllers = 0;
-    let reefCastles = 0;
+    let flowController = 0;
+    let reefCastle = 0;
     for (const building of buildings) {
-      if (building.name === 'áramlásirányító') flowControllers += 1;
-      else if (building.name === 'zátonyvár') reefCastles += 1;
+      if (building.name === 'áramlásirányító') flowController += 1;
+      else if (building.name === 'zátonyvár') reefCastle += 1;
     }
-    return { flowControllers, reefCastles };
+    return { flowController, reefCastle };
   }
 }
