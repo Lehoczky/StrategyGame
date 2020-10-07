@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Security.Claims;
 using AutoMapper;
 using backend.Data;
 using backend.DTOs;
@@ -26,7 +25,7 @@ namespace backend.Controllesrs
         [HttpGet]
         public ActionResult<IEnumerable<BuildingReadDto>> GetBuildingsForUser()
         {
-            var userId = Int32.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var userId = Helpers.IdForUser(User);
             var buildings = _repository.GetBuildingsForUser(userId);
             return Ok(_mapper.Map<IEnumerable<BuildingReadDto>>(buildings));
         }
@@ -34,7 +33,7 @@ namespace backend.Controllesrs
         [HttpGet("{id}", Name = "GetBuildingById")]
         public ActionResult<BuildingReadDto> GetBuildingById(int id)
         {
-            var userId = Int32.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var userId = Helpers.IdForUser(User);
             var building = _repository.GetBuildingById(id, userId);
 
             if (building != null)
@@ -45,7 +44,7 @@ namespace backend.Controllesrs
         [HttpPost]
         public ActionResult<BuildingReadDto> CreateBuildingForUser([FromBody] BuildingCreateDto building)
         {
-            var userId = Int32.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var userId = Helpers.IdForUser(User);
 
             try
             {

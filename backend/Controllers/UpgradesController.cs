@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Security.Claims;
 using AutoMapper;
 using backend.Data;
 using backend.DTOs;
-using backend.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,7 +25,7 @@ namespace backend.Controllesrs
         [HttpGet]
         public ActionResult<IEnumerable<UpgradeReadDto>> GetUpgradesForUser()
         {
-            var userId = Int32.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var userId = Helpers.IdForUser(User);
             var upgrades = _repository.GetUpgradesForUser(userId);
             return Ok(_mapper.Map<IEnumerable<UpgradeReadDto>>(upgrades));
         }
@@ -35,7 +33,7 @@ namespace backend.Controllesrs
         [HttpGet("{id}", Name = "GetUpgradeById")]
         public ActionResult<UpgradeReadDto> GetUpgradeById(int id)
         {
-            var userId = Int32.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var userId = Helpers.IdForUser(User);
             var upgrade = _repository.GetUpgradeById(id, userId);
 
             if (upgrade != null)
@@ -46,7 +44,7 @@ namespace backend.Controllesrs
         [HttpPost]
         public ActionResult<UpgradeReadDto> CreateUpgradeForUser([FromBody] UpgradeCreateDto upgrade)
         {
-            var userId = Int32.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var userId = Helpers.IdForUser(User);
             try
             {
                 var upgradeModel = _repository.CreateUpgradeForUser(upgrade, userId);

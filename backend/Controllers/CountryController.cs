@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Security.Claims;
 using AutoMapper;
 using backend.Data;
 using backend.DTOs;
@@ -26,7 +23,7 @@ namespace backend.Controllesrs
         [HttpGet]
         public ActionResult<CountryReadDto> GetCountryForUser()
         {
-            var userId = Int32.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var userId = Helpers.IdForUser(User);
             var country = _repository.GetCountryForUser(userId);
             return Ok(_mapper.Map<CountryReadDto>(country));
         }
