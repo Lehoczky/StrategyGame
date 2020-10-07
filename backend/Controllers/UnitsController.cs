@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Security.Claims;
 using AutoMapper;
 using backend.Data;
 using backend.DTOs;
-using backend.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,7 +25,7 @@ namespace backend.Controllesrs
         [HttpGet]
         public ActionResult<IEnumerable<UnitReadDto>> GetUnitsForUser()
         {
-            var userId = Int32.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var userId = Helpers.IdForUser(User);
             var units = _repository.GetUnitsForUser(userId);
             return Ok(_mapper.Map<IEnumerable<UnitReadDto>>(units));
         }
@@ -35,7 +33,7 @@ namespace backend.Controllesrs
         [HttpPost]
         public IActionResult CreateUnitsForUser([FromBody] UnitCreateDto units)
         {
-            var userId = Int32.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var userId = Helpers.IdForUser(User);
 
             try
             {
