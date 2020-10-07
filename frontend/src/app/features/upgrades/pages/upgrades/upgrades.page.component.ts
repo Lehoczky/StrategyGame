@@ -1,79 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { UpgradeService } from 'src/app/core/services/upgrade.service';
 
 @Component({
   templateUrl: './upgrades.page.component.html',
-  styleUrls: ['./upgrades.page.component.scss']
+  styleUrls: ['./upgrades.page.component.scss'],
 })
-export class UpgradesPageComponent implements OnInit {
+export class UpgradesPageComponent {
+  upgrades$ = this.upgradeService.upgradesWithDescription$;
   selectedIndex: number;
+  selectedUpgrade;
 
-  readonly upgradesInStore: any[] = [
-    {
-      name: 'Iszaptraktor',
-      coralBonus: 10,
-      defenseBonus: 0,
-      attackBonus: 0,
-      taxBonus: 0,
-      img: '../../../../../assets/img/undersea_game-09.png',
-      description: 'növeli a korall termesztését 10%-kal',
-      owned: false
-    },
-    {
-      name: 'Iszapkombájn',
-      coralBonus: 15,
-      defenseBonus: 0,
-      attackBonus: 0,
-      taxBonus: 0,
-      img: '../../../../../assets/img/undersea_game-10.png',
-      description: 'növeli a korall termesztését 15%-kal',
-      owned: false
-    }, {
-      name: 'Korallfal',
-      coralBonus: 0,
-      defenseBonus: 20,
-      attackBonus: 0,
-      taxBonus: 0,
-      img: '../../../../../assets/img/undersea_game-03.png',
-      description: 'növeli a védelmi pontokat 20%-kal',
-      owned: false
-    }, {
-      name: 'Szonárágyú',
-      coralBonus: 10,
-      defenseBonus: 0,
-      attackBonus: 20,
-      taxBonus: 0,
-      img: '../../../../../assets/img/undersea_game-03.png',
-      description: 'növeli a támadópontokat 20%-kal',
-      owned: false
-    }, {
-      name: 'Vízalatti harcművészetek',
-      coralBonus: 0,
-      defenseBonus: 10,
-      attackBonus: 10,
-      taxBonus: 0,
-      img: '../../../../../assets/img/undersea_game-03.png',
-      description: 'növeli a védelmi és támadóerőt 10%-kal',
-      owned: false
-    },
-    {
-      name: 'Alkímia',
-      coralBonus: 0,
-      defenseBonus: 0,
-      attackBonus: 0,
-      taxBonus: 30,
-      img: '../../../../../assets/img/undersea_game-03.png',
-      description: 'növeli a beszedett adót 30%-kal',
-      owned: false
-    },
-  ];
+  constructor(public upgradeService: UpgradeService) {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
-  selectUpgrade(index: number) {
+  selectUpgrade(index: number, upgrade) {
     this.selectedIndex = index;
+    this.selectedUpgrade = upgrade;
   }
 
+  purchaseUpgrade() {
+    this.upgradeService.purchaseUpgrade(this.selectedUpgrade.typeName);
+  }
 }

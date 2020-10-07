@@ -1,25 +1,32 @@
-<section class="upgrades">
+<section *ngIf="upgrades$ | async as upgrades" class="upgrades">
   <div class="upgrades-heading">
     <p class="font-l">Fejlesztések</p>
     <p>
-      Kattints rá, amelyiket szeretnéd megvenni.<br>
-      Minden fejlesztés 15 kört vesz igénybe, egyszerre csak egy dolog fejleszthető és minden
-      csak egyszer<br>fejleszthető ki (nem lehet két kombájn).
+      Kattints rá, amelyiket szeretnéd megvenni.<br />
+      Minden fejlesztés 15 kört vesz igénybe, egyszerre csak egy dolog
+      fejleszthető és minden csak egyszer<br />fejleszthető ki (nem lehet két
+      kombájn).
     </p>
   </div>
 
-  <div *ngFor="let upgrade of upgradesInStore; let i = index" [class]="'upgrades-' + (i + 1)"
-    [ngClass]="{'upgrades-selected': selectedIndex === i}" (click)="selectUpgrade(i)">
+  <div
+    *ngFor="let upgrade of upgrades; let i = index"
+    [class]="'upgrades-' + (i + 1)"
+    [ngClass]="{ 'upgrades-selected': selectedIndex === i }"
+    (click)="selectUpgrade(i, upgrade)"
+  >
     <span *ngIf="upgrade.owned" class="upgrades-info">még 15 kör</span>
     <div>
-      <img [src]="upgrade.img">
+      <img [src]="upgrade.img" />
       <div>
-        {{upgrade.name}}<br><span class="font-s">{{upgrade.description}}</span>
+        {{ upgrade.name }}<br /><span class="font-s">{{
+          upgrade.description
+        }}</span>
       </div>
     </div>
   </div>
 
   <div class="upgrades-btn">
-    <button>Megveszem</button>
+    <button (click)="purchaseUpgrade()">Megveszem</button>
   </div>
 </section>
