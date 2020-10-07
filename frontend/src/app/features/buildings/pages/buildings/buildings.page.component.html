@@ -7,38 +7,24 @@
     </p>
   </div>
 
-  <div class="buildings-1 font-s" (click)="selectBuilding(1)" #buildingFirst>
+
+  <div *ngFor="let building of buildingsInStore; let i = index" [class]="'buildings-'+(i + 1)"
+    [ngClass]="{'buildings-selected': i === selectedIndex}" (click)="selectBuilding(i)">
     <div>
-      <img class="buildings-img" src="../../../../../../assets/img/undersea_game-07.png">
-      <p>Zátonyvár<br>
-        50 embert ad a népességhez<br>
-        200 korallt termel körönként
+      <img class="buildings-img" [src]="building.img">
+      <p>{{building.name}}<br>
+        {{building.description}}
       </p>
     </div>
 
     <div>
       <p>
-        x db<br>
-        30 gyöngy / db
+        {{building.owned}} db<br>
+        {{building.price}} gyöngy / db
       </p>
     </div>
   </div>
 
-  <div class="buildings-2 font-s" (click)="selectBuilding(2)" #buildingSecond>
-    <div>
-      <img class="buildings-img" src="../../../../../../assets/img/undersea_game-05.png">
-      <p>Áramlásirányító<br>
-        200 egységnek nyújt szállást
-      </p>
-    </div>
-
-    <div>
-      <p>
-        x db<br>
-        30 gyöngy / db
-      </p>
-    </div>
-  </div>
   <div class="buildings-btn">
     <button>Megveszem</button>
   </div>
