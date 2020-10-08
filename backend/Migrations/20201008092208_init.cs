@@ -49,6 +49,58 @@ namespace backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Buildings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true),
+                    Price = table.Column<int>(nullable: false),
+                    Population = table.Column<int>(nullable: false),
+                    Units = table.Column<int>(nullable: false),
+                    CoralPerTurn = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Buildings", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Units",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true),
+                    Price = table.Column<int>(nullable: false),
+                    Attack = table.Column<int>(nullable: false),
+                    Defense = table.Column<int>(nullable: false),
+                    CostPerTurn = table.Column<int>(nullable: false),
+                    CoralPerTurn = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Units", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Upgrades",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true),
+                    CoralBonus = table.Column<int>(nullable: false),
+                    DefenseBonus = table.Column<int>(nullable: false),
+                    AttackBonus = table.Column<int>(nullable: false),
+                    TaxBonus = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Upgrades", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -177,22 +229,26 @@ namespace backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Buildings",
+                name: "CountryBuildings",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Price = table.Column<int>(nullable: false),
-                    Population = table.Column<int>(nullable: false),
-                    Units = table.Column<int>(nullable: false),
-                    CoralPerTurn = table.Column<int>(nullable: false),
-                    CountryId = table.Column<int>(nullable: false)
+                    Count = table.Column<int>(nullable: false),
+                    CountryId = table.Column<int>(nullable: false),
+                    BuildingId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Buildings", x => x.Id);
+                    table.PrimaryKey("PK_CountryBuildings", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Buildings_Countries_CountryId",
+                        name: "FK_CountryBuildings_Buildings_BuildingId",
+                        column: x => x.BuildingId,
+                        principalTable: "Buildings",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CountryBuildings_Countries_CountryId",
                         column: x => x.CountryId,
                         principalTable: "Countries",
                         principalColumn: "Id",
@@ -200,51 +256,88 @@ namespace backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Units",
+                name: "CountryUnits",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Price = table.Column<int>(nullable: false),
-                    Attack = table.Column<int>(nullable: false),
-                    Defense = table.Column<int>(nullable: false),
-                    CostPerTurn = table.Column<int>(nullable: false),
-                    CoralPerTurn = table.Column<int>(nullable: false),
-                    CountryId = table.Column<int>(nullable: false)
+                    Count = table.Column<int>(nullable: false),
+                    CountryId = table.Column<int>(nullable: false),
+                    UnitId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Units", x => x.Id);
+                    table.PrimaryKey("PK_CountryUnits", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Units_Countries_CountryId",
+                        name: "FK_CountryUnits_Countries_CountryId",
                         column: x => x.CountryId,
                         principalTable: "Countries",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CountryUnits_Units_UnitId",
+                        column: x => x.UnitId,
+                        principalTable: "Units",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Upgrades",
+                name: "CountryUpgrades",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
-                    CoralBonus = table.Column<int>(nullable: false),
-                    DefenseBonus = table.Column<int>(nullable: false),
-                    AttackBonus = table.Column<int>(nullable: false),
-                    TaxBonus = table.Column<int>(nullable: false),
-                    CountryId = table.Column<int>(nullable: false)
+                    CountryId = table.Column<int>(nullable: false),
+                    UpgradeId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Upgrades", x => x.Id);
+                    table.PrimaryKey("PK_CountryUpgrades", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Upgrades_Countries_CountryId",
+                        name: "FK_CountryUpgrades_Countries_CountryId",
                         column: x => x.CountryId,
                         principalTable: "Countries",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CountryUpgrades_Upgrades_UpgradeId",
+                        column: x => x.UpgradeId,
+                        principalTable: "Upgrades",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Buildings",
+                columns: new[] { "Id", "CoralPerTurn", "Name", "Population", "Price", "Units" },
+                values: new object[,]
+                {
+                    { 1, 200, "áramlásirányító", 50, 1000, 0 },
+                    { 2, 0, "zátonyvár", 0, 1000, 200 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Units",
+                columns: new[] { "Id", "Attack", "CoralPerTurn", "CostPerTurn", "Defense", "Name", "Price" },
+                values: new object[,]
+                {
+                    { 1, 6, 1, 1, 2, "rohamfóka", 50 },
+                    { 2, 2, 1, 1, 6, "csatacsikó", 50 },
+                    { 3, 5, 2, 3, 5, "lézercápa", 100 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Upgrades",
+                columns: new[] { "Id", "AttackBonus", "CoralBonus", "DefenseBonus", "Name", "TaxBonus" },
+                values: new object[,]
+                {
+                    { 1, 0, 10, 0, "iszaptraktor", 0 },
+                    { 2, 0, 15, 0, "iszapkombájn", 0 },
+                    { 3, 0, 0, 20, "korallfal", 0 },
+                    { 4, 20, 0, 0, "szonár ágyú", 0 },
+                    { 5, 10, 0, 10, "vízalatti harcművészetek", 0 },
+                    { 6, 0, 0, 0, "alkímia", 30 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -287,25 +380,40 @@ namespace backend.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Buildings_CountryId",
-                table: "Buildings",
-                column: "CountryId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Countries_UserId",
                 table: "Countries",
                 column: "UserId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Units_CountryId",
-                table: "Units",
+                name: "IX_CountryBuildings_BuildingId",
+                table: "CountryBuildings",
+                column: "BuildingId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CountryBuildings_CountryId",
+                table: "CountryBuildings",
                 column: "CountryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Upgrades_CountryId",
-                table: "Upgrades",
+                name: "IX_CountryUnits_CountryId",
+                table: "CountryUnits",
                 column: "CountryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CountryUnits_UnitId",
+                table: "CountryUnits",
+                column: "UnitId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CountryUpgrades_CountryId",
+                table: "CountryUpgrades",
+                column: "CountryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CountryUpgrades_UpgradeId",
+                table: "CountryUpgrades",
+                column: "UpgradeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -326,19 +434,28 @@ namespace backend.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "CountryBuildings");
+
+            migrationBuilder.DropTable(
+                name: "CountryUnits");
+
+            migrationBuilder.DropTable(
+                name: "CountryUpgrades");
+
+            migrationBuilder.DropTable(
+                name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
                 name: "Buildings");
 
             migrationBuilder.DropTable(
                 name: "Units");
 
             migrationBuilder.DropTable(
-                name: "Upgrades");
-
-            migrationBuilder.DropTable(
-                name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
                 name: "Countries");
+
+            migrationBuilder.DropTable(
+                name: "Upgrades");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

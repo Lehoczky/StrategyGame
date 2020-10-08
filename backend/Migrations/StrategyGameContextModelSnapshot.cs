@@ -226,9 +226,6 @@ namespace backend.Migrations
                     b.Property<int>("CoralPerTurn")
                         .HasColumnType("int");
 
-                    b.Property<int>("CountryId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -243,9 +240,27 @@ namespace backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CountryId");
-
                     b.ToTable("Buildings");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CoralPerTurn = 200,
+                            Name = "áramlásirányító",
+                            Population = 50,
+                            Price = 1000,
+                            Units = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CoralPerTurn = 0,
+                            Name = "zátonyvár",
+                            Population = 0,
+                            Price = 1000,
+                            Units = 200
+                        });
                 });
 
             modelBuilder.Entity("backend.Models.Country", b =>
@@ -275,6 +290,78 @@ namespace backend.Migrations
                     b.ToTable("Countries");
                 });
 
+            modelBuilder.Entity("backend.Models.CountryBuilding", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BuildingId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CountryId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BuildingId");
+
+                    b.HasIndex("CountryId");
+
+                    b.ToTable("CountryBuildings");
+                });
+
+            modelBuilder.Entity("backend.Models.CountryUnit", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CountryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UnitId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CountryId");
+
+                    b.HasIndex("UnitId");
+
+                    b.ToTable("CountryUnits");
+                });
+
+            modelBuilder.Entity("backend.Models.CountryUpgrade", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CountryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UpgradeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CountryId");
+
+                    b.HasIndex("UpgradeId");
+
+                    b.ToTable("CountryUpgrades");
+                });
+
             modelBuilder.Entity("backend.Models.Unit", b =>
                 {
                     b.Property<int>("Id")
@@ -291,9 +378,6 @@ namespace backend.Migrations
                     b.Property<int>("CostPerTurn")
                         .HasColumnType("int");
 
-                    b.Property<int>("CountryId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Defense")
                         .HasColumnType("int");
 
@@ -305,9 +389,39 @@ namespace backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CountryId");
-
                     b.ToTable("Units");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Attack = 6,
+                            CoralPerTurn = 1,
+                            CostPerTurn = 1,
+                            Defense = 2,
+                            Name = "rohamfóka",
+                            Price = 50
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Attack = 2,
+                            CoralPerTurn = 1,
+                            CostPerTurn = 1,
+                            Defense = 6,
+                            Name = "csatacsikó",
+                            Price = 50
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Attack = 5,
+                            CoralPerTurn = 2,
+                            CostPerTurn = 3,
+                            Defense = 5,
+                            Name = "lézercápa",
+                            Price = 100
+                        });
                 });
 
             modelBuilder.Entity("backend.Models.Upgrade", b =>
@@ -323,9 +437,6 @@ namespace backend.Migrations
                     b.Property<int>("CoralBonus")
                         .HasColumnType("int");
 
-                    b.Property<int>("CountryId")
-                        .HasColumnType("int");
-
                     b.Property<int>("DefenseBonus")
                         .HasColumnType("int");
 
@@ -337,9 +448,63 @@ namespace backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CountryId");
-
                     b.ToTable("Upgrades");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AttackBonus = 0,
+                            CoralBonus = 10,
+                            DefenseBonus = 0,
+                            Name = "iszaptraktor",
+                            TaxBonus = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AttackBonus = 0,
+                            CoralBonus = 15,
+                            DefenseBonus = 0,
+                            Name = "iszapkombájn",
+                            TaxBonus = 0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AttackBonus = 0,
+                            CoralBonus = 0,
+                            DefenseBonus = 20,
+                            Name = "korallfal",
+                            TaxBonus = 0
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AttackBonus = 20,
+                            CoralBonus = 0,
+                            DefenseBonus = 0,
+                            Name = "szonár ágyú",
+                            TaxBonus = 0
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AttackBonus = 10,
+                            CoralBonus = 0,
+                            DefenseBonus = 10,
+                            Name = "vízalatti harcművészetek",
+                            TaxBonus = 0
+                        },
+                        new
+                        {
+                            Id = 6,
+                            AttackBonus = 0,
+                            CoralBonus = 0,
+                            DefenseBonus = 0,
+                            Name = "alkímia",
+                            TaxBonus = 30
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -393,15 +558,6 @@ namespace backend.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("backend.Models.Building", b =>
-                {
-                    b.HasOne("backend.Models.Country", "Country")
-                        .WithMany("Buildings")
-                        .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("backend.Models.Country", b =>
                 {
                     b.HasOne("backend.Models.ApplicationUser", "User")
@@ -411,20 +567,47 @@ namespace backend.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("backend.Models.Unit", b =>
+            modelBuilder.Entity("backend.Models.CountryBuilding", b =>
+                {
+                    b.HasOne("backend.Models.Building", "Building")
+                        .WithMany()
+                        .HasForeignKey("BuildingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("backend.Models.Country", "Country")
+                        .WithMany("Buildings")
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("backend.Models.CountryUnit", b =>
                 {
                     b.HasOne("backend.Models.Country", "Country")
                         .WithMany("Units")
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("backend.Models.Unit", "Unit")
+                        .WithMany()
+                        .HasForeignKey("UnitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("backend.Models.Upgrade", b =>
+            modelBuilder.Entity("backend.Models.CountryUpgrade", b =>
                 {
                     b.HasOne("backend.Models.Country", "Country")
                         .WithMany("Upgrades")
                         .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("backend.Models.Upgrade", "Upgrade")
+                        .WithMany()
+                        .HasForeignKey("UpgradeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
