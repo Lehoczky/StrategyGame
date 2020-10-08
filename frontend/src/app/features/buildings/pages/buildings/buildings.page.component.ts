@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { BuildingService } from 'src/app/features/buildings/building.service';
+import { Building } from '../../building.model';
 
 @Component({
   templateUrl: './buildings.page.component.html',
@@ -7,10 +8,8 @@ import { BuildingService } from 'src/app/features/buildings/building.service';
 })
 export class BuildingsPageComponent {
   selectedIndex: number;
-  selectedBuilding: any;
-  buildings$ = this.buildingService.buildingsWithDescription$;
-
-  readonly buildingsInStore: any[] = [];
+  selectedBuilding: Building;
+  buildings$ = this.buildingService.buildings$;
 
   constructor(public buildingService: BuildingService) {}
 
@@ -20,6 +19,6 @@ export class BuildingsPageComponent {
   }
 
   purchaseBuilding() {
-    this.buildingService.purchaseBuilding(this.selectedBuilding.typeName);
+    this.buildingService.purchaseBuilding(this.selectedBuilding);
   }
 }

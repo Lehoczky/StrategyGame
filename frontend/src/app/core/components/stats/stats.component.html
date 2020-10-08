@@ -38,18 +38,10 @@
     </div>
   </div>
 
-  <div class="flex">
-    <img src="../../../../assets/svg/castle-building.svg" />
+  <div *ngFor="let building of stat.buildings" class="flex">
+    <img [src]="'../../../../assets/' + building.statImage" />
     <div class="stats-grid">
-      <div class="font-primary">{{ stat.buildings.reefCastle }}</div>
-      <div class="font-secondary">0 épül</div>
-    </div>
-  </div>
-
-  <div class="flex">
-    <img src="../../../../assets/svg/control-building.svg" />
-    <div class="stats-grid">
-      <div class="font-primary">{{ stat.buildings.flowController }}</div>
+      <div class="font-primary">{{ building.owned }}</div>
       <div class="font-secondary">0 épül</div>
     </div>
   </div>

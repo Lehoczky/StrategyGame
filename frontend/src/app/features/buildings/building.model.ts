@@ -1,11 +1,13 @@
 export class Building {
+  id: number;
   name: string;
   typeName: string;
   price: number;
   population: number;
   units: number;
   coralPerTurn: number;
-  owned: number;
-  img: string;
-  description: string;
+  image?: string;
+  statImage?: string;
+  owned?: number;
+  description?: string;
 }
