@@ -22,5 +22,8 @@ namespace backend.DTOs
         public int Population { get; set; }
         public int Units { get; set; }
         public int CoralPerTurn { get; set; }
+        public string Description { get; set; }
+        public string Image { get; set; }
+        public string StatImage { get; set; }
     }
 }

@@ -58,7 +58,10 @@ namespace backend.Migrations
                     Price = table.Column<int>(nullable: false),
                     Population = table.Column<int>(nullable: false),
                     Units = table.Column<int>(nullable: false),
-                    CoralPerTurn = table.Column<int>(nullable: false)
+                    CoralPerTurn = table.Column<int>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    Image = table.Column<string>(nullable: true),
+                    StatImage = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -76,7 +79,8 @@ namespace backend.Migrations
                     Attack = table.Column<int>(nullable: false),
                     Defense = table.Column<int>(nullable: false),
                     CostPerTurn = table.Column<int>(nullable: false),
-                    CoralPerTurn = table.Column<int>(nullable: false)
+                    CoralPerTurn = table.Column<int>(nullable: false),
+                    Image = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -93,7 +97,9 @@ namespace backend.Migrations
                     CoralBonus = table.Column<int>(nullable: false),
                     DefenseBonus = table.Column<int>(nullable: false),
                     AttackBonus = table.Column<int>(nullable: false),
-                    TaxBonus = table.Column<int>(nullable: false)
+                    TaxBonus = table.Column<int>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    Image = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -310,34 +316,34 @@ namespace backend.Migrations
 
             migrationBuilder.InsertData(
                 table: "Buildings",
-                columns: new[] { "Id", "CoralPerTurn", "Name", "Population", "Price", "Units" },
+                columns: new[] { "Id", "CoralPerTurn", "Description", "Image", "Name", "Population", "Price", "StatImage", "Units" },
                 values: new object[,]
                 {
-                    { 1, 200, "áramlásirányító", 50, 1000, 0 },
-                    { 2, 0, "zátonyvár", 0, 1000, 200 }
+                    { 1, 200, "50 embert ad a népességhez. 200 korallt termel körönként", "img/undersea_game-07.png", "áramlásirányító", 50, 1000, "svg/control-building.svg", 0 },
+                    { 2, 0, "200 egységnek nyújt szállást", "img/undersea_game-05.png", "zátonyvár", 0, 1000, "svg/castle-building.svg", 200 }
                 });
 
             migrationBuilder.InsertData(
                 table: "Units",
-                columns: new[] { "Id", "Attack", "CoralPerTurn", "CostPerTurn", "Defense", "Name", "Price" },
+                columns: new[] { "Id", "Attack", "CoralPerTurn", "CostPerTurn", "Defense", "Image", "Name", "Price" },
                 values: new object[,]
                 {
-                    { 1, 6, 1, 1, 2, "rohamfóka", 50 },
-                    { 2, 2, 1, 1, 6, "csatacsikó", 50 },
-                    { 3, 5, 2, 3, 5, "lézercápa", 100 }
+                    { 1, 6, 1, 1, 2, "svg/025-seal.svg", "rohamfóka", 50 },
+                    { 2, 2, 1, 1, 6, "svg/013-seahorse.svg", "csatacsikó", 50 },
+                    { 3, 5, 2, 3, 5, "svg/007-shark.svg", "lézercápa", 100 }
                 });
 
             migrationBuilder.InsertData(
                 table: "Upgrades",
-                columns: new[] { "Id", "AttackBonus", "CoralBonus", "DefenseBonus", "Name", "TaxBonus" },
+                columns: new[] { "Id", "AttackBonus", "CoralBonus", "DefenseBonus", "Description", "Image", "Name", "TaxBonus" },
                 values: new object[,]
                 {
-                    { 1, 0, 10, 0, "iszaptraktor", 0 },
-                    { 2, 0, 15, 0, "iszapkombájn", 0 },
-                    { 3, 0, 0, 20, "korallfal", 0 },
-                    { 4, 20, 0, 0, "szonár ágyú", 0 },
-                    { 5, 10, 0, 10, "vízalatti harcművészetek", 0 },
-                    { 6, 0, 0, 0, "alkímia", 30 }
+                    { 1, 0, 10, 0, "növeli a korall termesztését 10%-kal", "img/undersea_game-09.png", "iszaptraktor", 0 },
+                    { 2, 0, 15, 0, "növeli a korall termesztését 15%-kal", "img/undersea_game-10.png", "iszapkombájn", 0 },
+                    { 3, 0, 0, 20, "növeli a védelmi pontokat 20%-kal", "img/undersea_game-03.png", "korallfal", 0 },
+                    { 4, 20, 0, 0, "növeli a támadópontokat 20%-kal", "img/undersea_game-03.png", "szonár ágyú", 0 },
+                    { 5, 10, 0, 10, "növeli a védelmi és támadóerőt 10%-kal", "img/undersea_game-03.png", "vízalatti harcművészetek", 0 },
+                    { 6, 0, 0, 0, "növeli a beszedett adót 30%-kal", "img/undersea_game-03.png", "alkímia", 30 }
                 });
 
             migrationBuilder.CreateIndex(

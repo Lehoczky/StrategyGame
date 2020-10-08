@@ -25,5 +25,6 @@ namespace backend.DTOs
         public int Defense { get; set; }
         public int CostPerTurn { get; set; }
         public int CoralPerTurn { get; set; }
+        public string Image { get; set; }
     }
 }

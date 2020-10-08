@@ -46,19 +46,9 @@ export class BuildingService {
         this.buildingsSubject$.next(buildings);
       });
 
-    this.fetchTypes()
-      .pipe(
-        map(buildings => {
-          return buildings.map(building => {
-            const description = this.descriptionForBuilding(building);
-            const images = this.imageNamesForBuilding(building);
-            return { ...building, ...images, description } as Building;
-          });
-        }),
-      )
-      .subscribe(buildings => {
-        this.types$.next(buildings);
-      });
+    this.fetchTypes().subscribe(buildings => {
+      this.types$.next(buildings);
+    });
   }
 
   purchaseBuilding(building: Building): void {
@@ -88,32 +78,5 @@ export class BuildingService {
 
   private fetchBuildings() {
     return this.http.get<Array<BuildingByCount>>(this.buildingsUrl);
-  }
-
-  private descriptionForBuilding(building: Building): string {
-    let description = '';
-    if (building.population !== 0)
-      description += `${building.population} embert ad a népességhez. `;
-
-    if (building.coralPerTurn !== 0)
-      description += `${building.coralPerTurn} korallt termel körönként. `;
-
-    if (building.units !== 0)
-      description += `${building.units} egységnek nyújt szállást. `;
-
-    return description;
-  }
-
-  private imageNamesForBuilding(building: Building) {
-    if (building.name === 'zátonyvár')
-      return {
-        image: 'img/undersea_game-05.png',
-        statImage: 'svg/castle-building.svg',
-      };
-    else if (building.name === 'áramlásirányító')
-      return {
-        image: 'img/undersea_game-07.png',
-        statImage: 'svg/control-building.svg',
-      };
   }
 }

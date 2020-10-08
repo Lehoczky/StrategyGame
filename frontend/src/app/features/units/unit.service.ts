@@ -44,18 +44,9 @@ export class UnitService {
         this.unitsSubject$.next(units);
       });
 
-    this.fetchTypes()
-      .pipe(
-        map(units => {
-          return units.map(unit => {
-            const image = this.imageNamesForUnit(unit);
-            return { ...unit, image } as Unit;
-          });
-        }),
-      )
-      .subscribe(units => {
-        this.types$.next(units);
-      });
+    this.fetchTypes().subscribe(units => {
+      this.types$.next(units);
+    });
   }
 
   purchaseUnits(units: object) {
@@ -84,11 +75,5 @@ export class UnitService {
 
   private fetchUnits() {
     return this.http.get<Array<UnitByCount>>(this.unitsUrl);
-  }
-
-  private imageNamesForUnit(unit: Unit): string {
-    if (unit.name === 'lézercápa') return 'svg/007-shark.svg';
-    else if (unit.name === 'rohamfóka') return 'svg/025-seal.svg';
-    else if (unit.name === 'csatacsikó') return 'svg/013-seahorse.svg';
   }
 }

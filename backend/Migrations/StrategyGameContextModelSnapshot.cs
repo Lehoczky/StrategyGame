@@ -226,6 +226,12 @@ namespace backend.Migrations
                     b.Property<int>("CoralPerTurn")
                         .HasColumnType("int");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -234,6 +240,9 @@ namespace backend.Migrations
 
                     b.Property<int>("Price")
                         .HasColumnType("int");
+
+                    b.Property<string>("StatImage")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Units")
                         .HasColumnType("int");
@@ -247,18 +256,24 @@ namespace backend.Migrations
                         {
                             Id = 1,
                             CoralPerTurn = 200,
+                            Description = "50 embert ad a népességhez. 200 korallt termel körönként",
+                            Image = "img/undersea_game-07.png",
                             Name = "áramlásirányító",
                             Population = 50,
                             Price = 1000,
+                            StatImage = "svg/control-building.svg",
                             Units = 0
                         },
                         new
                         {
                             Id = 2,
                             CoralPerTurn = 0,
+                            Description = "200 egységnek nyújt szállást",
+                            Image = "img/undersea_game-05.png",
                             Name = "zátonyvár",
                             Population = 0,
                             Price = 1000,
+                            StatImage = "svg/castle-building.svg",
                             Units = 200
                         });
                 });
@@ -381,6 +396,9 @@ namespace backend.Migrations
                     b.Property<int>("Defense")
                         .HasColumnType("int");
 
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -399,6 +417,7 @@ namespace backend.Migrations
                             CoralPerTurn = 1,
                             CostPerTurn = 1,
                             Defense = 2,
+                            Image = "svg/025-seal.svg",
                             Name = "rohamfóka",
                             Price = 50
                         },
@@ -409,6 +428,7 @@ namespace backend.Migrations
                             CoralPerTurn = 1,
                             CostPerTurn = 1,
                             Defense = 6,
+                            Image = "svg/013-seahorse.svg",
                             Name = "csatacsikó",
                             Price = 50
                         },
@@ -419,6 +439,7 @@ namespace backend.Migrations
                             CoralPerTurn = 2,
                             CostPerTurn = 3,
                             Defense = 5,
+                            Image = "svg/007-shark.svg",
                             Name = "lézercápa",
                             Price = 100
                         });
@@ -440,6 +461,12 @@ namespace backend.Migrations
                     b.Property<int>("DefenseBonus")
                         .HasColumnType("int");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -457,6 +484,8 @@ namespace backend.Migrations
                             AttackBonus = 0,
                             CoralBonus = 10,
                             DefenseBonus = 0,
+                            Description = "növeli a korall termesztését 10%-kal",
+                            Image = "img/undersea_game-09.png",
                             Name = "iszaptraktor",
                             TaxBonus = 0
                         },
@@ -466,6 +495,8 @@ namespace backend.Migrations
                             AttackBonus = 0,
                             CoralBonus = 15,
                             DefenseBonus = 0,
+                            Description = "növeli a korall termesztését 15%-kal",
+                            Image = "img/undersea_game-10.png",
                             Name = "iszapkombájn",
                             TaxBonus = 0
                         },
@@ -475,6 +506,8 @@ namespace backend.Migrations
                             AttackBonus = 0,
                             CoralBonus = 0,
                             DefenseBonus = 20,
+                            Description = "növeli a védelmi pontokat 20%-kal",
+                            Image = "img/undersea_game-03.png",
                             Name = "korallfal",
                             TaxBonus = 0
                         },
@@ -484,6 +517,8 @@ namespace backend.Migrations
                             AttackBonus = 20,
                             CoralBonus = 0,
                             DefenseBonus = 0,
+                            Description = "növeli a támadópontokat 20%-kal",
+                            Image = "img/undersea_game-03.png",
                             Name = "szonár ágyú",
                             TaxBonus = 0
                         },
@@ -493,6 +528,8 @@ namespace backend.Migrations
                             AttackBonus = 10,
                             CoralBonus = 0,
                             DefenseBonus = 10,
+                            Description = "növeli a védelmi és támadóerőt 10%-kal",
+                            Image = "img/undersea_game-03.png",
                             Name = "vízalatti harcművészetek",
                             TaxBonus = 0
                         },
@@ -502,6 +539,8 @@ namespace backend.Migrations
                             AttackBonus = 0,
                             CoralBonus = 0,
                             DefenseBonus = 0,
+                            Description = "növeli a beszedett adót 30%-kal",
+                            Image = "img/undersea_game-03.png",
                             Name = "alkímia",
                             TaxBonus = 30
                         });
