@@ -49,8 +49,8 @@ namespace backend.Data
             var upgradeModel = await _context.Upgrades
                .Where(u => u.Name == upgrade.Name)
                .SingleOrDefaultAsync();
-            var countryUpgrade = new CountryUpgrade { Upgrade = upgradeModel };
-            user.Country.Upgrades.Add(countryUpgrade);
+
+            var countryUpgrade = AddUpgradeToUser(upgradeModel, user);
             await _context.SaveChangesAsync();
             return countryUpgrade;
         }
@@ -60,70 +60,22 @@ namespace backend.Data
             return await _context.Users
                 .Include(user => user.Country)
                     .ThenInclude(country => country.Upgrades)
+                    .ThenInclude(u => u.Upgrade)
                 .SingleOrDefaultAsync(user => user.Id == userId);
         }
 
-        private Upgrade ModelForType(string type)
+        private CountryUpgrade AddUpgradeToUser(Upgrade upgrade, ApplicationUser user)
         {
-            switch (type)
+            foreach (var countryUpgrade in user.Country.Upgrades)
             {
-                case "mudTractor":
-                    return new Upgrade
-                    {
-                        Name = "iszaptraktor",
-                        CoralBonus = 10,
-                        DefenseBonus = 0,
-                        AttackBonus = 0,
-                        TaxBonus = 0
-                    };
-                case "mudCombine":
-                    return new Upgrade
-                    {
-                        Name = "iszapkombájn",
-                        CoralBonus = 15,
-                        DefenseBonus = 0,
-                        AttackBonus = 0,
-                        TaxBonus = 0
-                    };
-                case "coralWall":
-                    return new Upgrade
-                    {
-                        Name = "korallfal",
-                        CoralBonus = 0,
-                        DefenseBonus = 20,
-                        AttackBonus = 0,
-                        TaxBonus = 0
-                    };
-                case "sonarCannon":
-                    return new Upgrade
-                    {
-                        Name = "szonár ágyú",
-                        CoralBonus = 0,
-                        DefenseBonus = 0,
-                        AttackBonus = 20,
-                        TaxBonus = 0
-                    };
-                case "undergroundMartialArts":
-                    return new Upgrade
-                    {
-                        Name = "vízalatti harcművészetek",
-                        CoralBonus = 0,
-                        DefenseBonus = 10,
-                        AttackBonus = 10,
-                        TaxBonus = 0
-                    };
-                case "alchemy":
-                    return new Upgrade
-                    {
-                        Name = "alkímia",
-                        CoralBonus = 0,
-                        DefenseBonus = 0,
-                        AttackBonus = 0,
-                        TaxBonus = 30
-                    };
-                default:
-                    throw new ArgumentException("Invalid upgrade type");
+                if (countryUpgrade.Upgrade == upgrade)
+                {
+                    throw new ArgumentException("Upgrade has been already researched");
+                }
             }
+            var cu = new CountryUpgrade { Upgrade = upgrade };
+            user.Country.Upgrades.Add(cu);
+            return cu;
         }
     }
 }
