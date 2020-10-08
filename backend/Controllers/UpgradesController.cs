@@ -44,8 +44,15 @@ namespace backend.Controllesrs
             return NotFound();
         }
 
+        [HttpGet("types")]
+        public async Task<ActionResult<IEnumerable<UpgradeTypeReadDto>>> GetUpgradeTypes()
+        {
+            var upgrades = await _repository.GetUpgradeTypes();
+            return Ok(_mapper.Map<IEnumerable<UpgradeTypeReadDto>>(upgrades));
+        }
+
         [HttpPost]
-        public async Task <ActionResult<UpgradeReadDto>> CreateUpgradeForUser([FromBody] UpgradeCreateDto upgrade)
+        public async Task<ActionResult<UpgradeReadDto>> CreateUpgradeForUser([FromBody] UpgradeCreateDto upgrade)
         {
             var userId = Helpers.IdForUser(User);
             try

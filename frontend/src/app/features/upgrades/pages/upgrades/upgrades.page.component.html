@@ -17,7 +17,7 @@
   >
     <span *ngIf="upgrade.owned" class="upgrades-info">még 15 kör</span>
     <div>
-      <img [src]="upgrade.img" />
+      <img [src]="'../../../../../assets/' + upgrade.image" />
       <div>
         {{ upgrade.name }}<br /><span class="font-s">{{
           upgrade.description

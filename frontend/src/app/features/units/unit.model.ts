@@ -1,11 +1,12 @@
 export class Unit {
+  id: number;
   name: string;
-  typeName: string;
   price: number;
   attack: number;
   defense: number;
   costPerTurn: number;
   coralPerTurn: number;
-  img: string;
-  owned: number;
+  image?: string;
+  statImage?: string;
+  owned?: number;
 }

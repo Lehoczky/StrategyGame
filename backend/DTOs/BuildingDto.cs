@@ -4,17 +4,26 @@ namespace backend.DTOs
 {
     public class BuildingReadDto
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public int Price { get; set; }
-        public int Population { get; set; }
-        public int Units { get; set; }
-        public int CoralPerTurn { get; set; }
+        public int Count { get; set; }
+        public int BuildingId { get; set; }
     }
 
     public class BuildingCreateDto
     {
         [Required]
         public string Name { get; set; }
+    }
+
+    public class BuildingTypeReadDto
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int Price { get; set; }
+        public int Population { get; set; }
+        public int Units { get; set; }
+        public int CoralPerTurn { get; set; }
+        public string Description { get; set; }
+        public string Image { get; set; }
+        public string StatImage { get; set; }
     }
 }

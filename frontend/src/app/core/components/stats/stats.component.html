@@ -1,24 +1,11 @@
 <section *ngIf="stat$ | async as stat" class="stats">
   <div class="font-primary">1.kör</div>
   <div class="font-primary">14. hely</div>
-  <div class="flex">
-    <img src="../../../../assets/svg/007-shark.svg" />
-    <div class="stats-grid">
-      <div class="font-primary">{{ stat.units.laserShark }}</div>
-    </div>
-  </div>
 
-  <div class="flex">
-    <img src="../../../../assets/svg/025-seal.svg" />
+  <div *ngFor="let unit of stat.units" class="flex">
+    <img [src]="'../../../../assets/' + unit.image" />
     <div class="stats-grid">
-      <div class="font-primary">{{ stat.units.attackSeal }}</div>
-    </div>
-  </div>
-
-  <div class="flex">
-    <img src="../../../../assets/svg/013-seahorse.svg" />
-    <div class="stats-grid">
-      <div class="font-primary">{{ stat.units.battleSeaHorse }}</div>
+      <div class="font-primary">{{ unit.owned }}</div>
     </div>
   </div>
 
@@ -38,18 +25,10 @@
     </div>
   </div>
 
-  <div class="flex">
-    <img src="../../../../assets/svg/castle-building.svg" />
+  <div *ngFor="let building of stat.buildings" class="flex">
+    <img [src]="'../../../../assets/' + building.statImage" />
     <div class="stats-grid">
-      <div class="font-primary">{{ stat.buildings.reefCastle }}</div>
-      <div class="font-secondary">0 épül</div>
-    </div>
-  </div>
-
-  <div class="flex">
-    <img src="../../../../assets/svg/control-building.svg" />
-    <div class="stats-grid">
-      <div class="font-primary">{{ stat.buildings.flowController }}</div>
+      <div class="font-primary">{{ building.owned }}</div>
       <div class="font-secondary">0 épül</div>
     </div>
   </div>

@@ -1,109 +1,28 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, combineLatest } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../core/services/auth.service';
-import { tap, filter, switchMap, map } from 'rxjs/operators';
+import { filter, map, switchMap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Upgrade } from './upgrade.model';
-
-class UpgradesState {
-  mudTractor: boolean;
-  mudCombine: boolean;
-  coralWall: boolean;
-  sonarCannon: boolean;
-  undergroundMartialArts: boolean;
-  alchemy: boolean;
-}
-
-const initalState: UpgradesState = {
-  mudTractor: false,
-  mudCombine: false,
-  coralWall: false,
-  sonarCannon: false,
-  undergroundMartialArts: false,
-  alchemy: false,
-};
 
 @Injectable({
   providedIn: 'root',
 })
 export class UpgradeService {
-  private upgradesSubject$ = new BehaviorSubject<UpgradesState>(initalState);
-  upgrades$ = this.upgradesSubject$.asObservable();
-  upgradesWithDescription$ = this.upgrades$.pipe(
-    map(upgrades => {
-      return [
-        {
-          name: 'Iszaptraktor',
-          typeName: 'mudTractor',
-          coralBonus: 10,
-          defenseBonus: 0,
-          attackBonus: 0,
-          taxBonus: 0,
-          img: '../../../../../assets/img/undersea_game-09.png',
-          description: 'növeli a korall termesztését 10%-kal',
-          owned: upgrades.mudTractor,
-        },
-        {
-          name: 'Iszapkombájn',
-          typeName: 'mudCombine',
-          coralBonus: 15,
-          defenseBonus: 0,
-          attackBonus: 0,
-          taxBonus: 0,
-          img: '../../../../../assets/img/undersea_game-10.png',
-          description: 'növeli a korall termesztését 15%-kal',
-          owned: upgrades.mudCombine,
-        },
-        {
-          name: 'Korallfal',
-          typeName: 'coralWall',
-          coralBonus: 0,
-          defenseBonus: 20,
-          attackBonus: 0,
-          taxBonus: 0,
-          img: '../../../../../assets/img/undersea_game-03.png',
-          description: 'növeli a védelmi pontokat 20%-kal',
-          owned: upgrades.coralWall,
-        },
-        {
-          name: 'Szonárágyú',
-          typeName: 'sonarCannon',
-          coralBonus: 10,
-          defenseBonus: 0,
-          attackBonus: 20,
-          taxBonus: 0,
-          img: '../../../../../assets/img/undersea_game-03.png',
-          description: 'növeli a támadópontokat 20%-kal',
-          owned: upgrades.sonarCannon,
-        },
-        {
-          name: 'Vízalatti harcművészetek',
-          typeName: 'undergroundMartialArts',
-          coralBonus: 0,
-          defenseBonus: 10,
-          attackBonus: 10,
-          taxBonus: 0,
-          img: '../../../../../assets/img/undersea_game-03.png',
-          description: 'növeli a védelmi és támadóerőt 10%-kal',
-          owned: upgrades.undergroundMartialArts,
-        },
-        {
-          name: 'Alkímia',
-          typeName: 'alchemy',
-          coralBonus: 0,
-          defenseBonus: 0,
-          attackBonus: 0,
-          taxBonus: 30,
-          img: '../../../../../assets/img/undersea_game-03.png',
-          description: 'növeli a beszedett adót 30%-kal',
-          owned: upgrades.alchemy,
-        },
-      ] as Array<Upgrade>;
+  private upgradesUrl = `${environment.apiUrl}/upgrades`;
+  private types$ = new BehaviorSubject<Array<Upgrade>>([]);
+  private upgradesSubject$ = new BehaviorSubject<Array<number>>([]);
+
+  researchedUpgrades$ = this.upgradesSubject$.asObservable();
+  upgrades$ = combineLatest(this.types$, this.researchedUpgrades$).pipe(
+    map(([upgrades, researched]) => {
+      return upgrades.map(upgrade => {
+        const owned = researched.includes(upgrade.id);
+        return { ...upgrade, owned } as Upgrade;
+      });
     }),
   );
-
-  private upgradesUrl = `${environment.apiUrl}/upgrades`;
 
   constructor(
     private http: HttpClient,
@@ -113,56 +32,29 @@ export class UpgradeService {
       .pipe(
         filter(user => user !== null),
         switchMap(_ => this.fetchUpgrades()),
-        map(this.findResearchedUpgrades),
+        map(upgrades => upgrades.map(entry => entry.upgradeId)),
       )
       .subscribe(upgrades => {
-        console.log(upgrades);
-
         this.upgradesSubject$.next(upgrades);
       });
-  }
 
-  purchaseUpgrade(upgrade: string) {
-    this.http.post(this.upgradesUrl, { name: upgrade }).subscribe(() => {
-      const currentState = this.upgradesSubject$.getValue();
-      const newState = {
-        ...currentState,
-        [upgrade]: true,
-      };
-      console.log(newState);
-
-      this.upgradesSubject$.next(newState);
+    this.fetchTypes().subscribe(upgrades => {
+      this.types$.next(upgrades);
     });
   }
 
-  private fetchUpgrades() {
-    return this.http.get(this.upgradesUrl);
+  purchaseUpgrade(upgrade: Upgrade) {
+    this.http.post(this.upgradesUrl, { name: upgrade.name }).subscribe(() => {
+      const state = this.upgradesSubject$.getValue();
+      this.upgradesSubject$.next([...state, upgrade.id]);
+    });
   }
 
-  private findResearchedUpgrades(upgrades): UpgradesState {
-    const researched = { ...initalState };
-    for (const upgrade of upgrades) {
-      switch (upgrade.name) {
-        case 'iszaptraktor':
-          researched.mudTractor = true;
-          break;
-        case 'iszapkombájn':
-          researched.mudCombine = true;
-          break;
-        case 'korallfal':
-          researched.coralWall = true;
-          break;
-        case 'szonár ágyú':
-          researched.sonarCannon = true;
-          break;
-        case 'vízalatti harcművészetek':
-          researched.undergroundMartialArts = true;
-          break;
-        case 'alkímia':
-          researched.alchemy = true;
-          break;
-      }
-    }
-    return researched;
+  private fetchTypes() {
+    return this.http.get<Array<Upgrade>>(this.upgradesUrl + '/types');
+  }
+
+  private fetchUpgrades() {
+    return this.http.get<Array<{ upgradeId: number }>>(this.upgradesUrl);
   }
 }

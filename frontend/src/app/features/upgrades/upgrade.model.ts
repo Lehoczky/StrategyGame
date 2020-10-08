@@ -1,11 +1,7 @@
 export class Upgrade {
+  id: number;
   name: string;
-  typeName: string;
-  coralBonus: number;
-  defenseBonus: number;
-  attackBonus: number;
-  taxBonus: number;
-  img: string;
+  image: string;
   description: string;
-  owned: boolean;
+  owned?: boolean;
 }

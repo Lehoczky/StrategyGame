@@ -24,7 +24,7 @@ namespace backend.Controllesrs
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<BuildingReadDto>>>  GetBuildingsForUser()
+        public async Task<ActionResult<IEnumerable<BuildingReadDto>>> GetBuildingsForUser()
         {
             var userId = Helpers.IdForUser(User);
             var buildings = await _repository.GetBuildingsForUser(userId);
@@ -42,6 +42,13 @@ namespace backend.Controllesrs
                 return Ok(_mapper.Map<BuildingReadDto>(building));
             }
             return NotFound();
+        }
+
+        [HttpGet("types")]
+        public async Task<ActionResult<IEnumerable<BuildingTypeReadDto>>> GetBuildingTypes()
+        {
+            var buildings = await _repository.GetBuildingsTypes();
+            return Ok(_mapper.Map<IEnumerable<BuildingTypeReadDto>>(buildings));
         }
 
         [HttpPost]

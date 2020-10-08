@@ -8,8 +8,8 @@ namespace backend.Profiles
     {
         public UnitsProfile()
         {
-            CreateMap<Unit, UnitReadDto>();
-            CreateMap<UnitCreateDto, Unit>();
+            CreateMap<CountryUnit, UnitReadDto>();
+            CreateMap<Unit, UnitTypeReadDto>();
         }
     }
 }

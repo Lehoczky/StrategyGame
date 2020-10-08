@@ -4,56 +4,34 @@ import { filter, switchMap, map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Building } from './building.model';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, combineLatest } from 'rxjs';
 
-class BuildingsByCount {
-  flowController: number;
-  reefCastle: number;
+class BuildingByCount {
+  count: number;
+  buildingId: number;
 }
-
-const initialState: BuildingsByCount = {
-  flowController: 0,
-  reefCastle: 0,
-};
 
 @Injectable({
   providedIn: 'root',
 })
 export class BuildingService {
-  private buildingsSubject$ = new BehaviorSubject<BuildingsByCount>(
-    initialState,
-  );
-  buildings$ = this.buildingsSubject$.asObservable();
-  buildingsWithDescription$ = this.buildings$.pipe(
-    map(buildings => {
-      return [
-        {
-          name: 'Áramlásirányító',
-          typeName: 'flowController',
-          price: 1000,
-          units: 0,
-          population: 50,
-          coralPerTurn: 200,
-          owned: buildings.flowController,
-          img: '../../../../../../assets/img/undersea_game-05.png',
-          description: `50 embert ad a népességhez. 200 korallt termel körönként`,
-        },
-        {
-          name: 'Zátonyvár',
-          typeName: 'reefCastle',
-          price: 1000,
-          units: 200,
-          population: 0,
-          coralPerTurn: 0,
-          owned: buildings.reefCastle,
-          img: '../../../../../../assets/img/undersea_game-07.png',
-          description: '200 egységnek nyújt szállást',
-        },
-      ] as Array<Building>;
+  private buildingsUrl = `${environment.apiUrl}/buildings`;
+  private types$ = new BehaviorSubject<Array<Building>>([]);
+  private buildingsSubject$ = new BehaviorSubject<Array<BuildingByCount>>([]);
+
+  buildingTypes$ = this.types$.asObservable();
+  buildingsCount$ = this.buildingsSubject$.asObservable();
+  buildings$ = combineLatest(this.buildingTypes$, this.buildingsCount$).pipe(
+    map(([buildingTypes, buildingCounts]) => {
+      return buildingTypes.map(building => {
+        const buildingCount = buildingCounts.find(
+          x => x.buildingId === building.id,
+        );
+        const owned = buildingCount !== undefined ? buildingCount.count : 0;
+        return { ...building, owned } as Building;
+      });
     }),
   );
-
-  private buildingsUrl = `${environment.apiUrl}/buildings`;
 
   constructor(
     private http: HttpClient,
@@ -63,37 +41,42 @@ export class BuildingService {
       .pipe(
         filter(user => user !== null),
         switchMap(_ => this.fetchBuildings()),
-        map(this.countByType),
       )
       .subscribe(buildings => {
         this.buildingsSubject$.next(buildings);
       });
+
+    this.fetchTypes().subscribe(buildings => {
+      this.types$.next(buildings);
+    });
   }
 
-  purchaseBuilding(buildingType: string): void {
+  purchaseBuilding(building: Building): void {
     this.http
-      .post<Building>(this.buildingsUrl, { name: buildingType })
+      .post<Building>(this.buildingsUrl, { name: building.name })
       .subscribe(() => {
-        const currentState = this.buildingsSubject$.getValue();
-        const newState = {
-          ...currentState,
-          [buildingType]: currentState[buildingType] + 1,
-        };
-        this.buildingsSubject$.next(newState);
+        const state = this.buildingsSubject$.getValue();
+        for (let i = 0; i < state.length; i++) {
+          const element = state[i];
+          if (element.buildingId === building.id) {
+            state.slice(i, 1);
+            element.count += 1;
+            this.buildingsSubject$.next([...state, element]);
+            return;
+          }
+        }
+        this.buildingsSubject$.next([
+          ...state,
+          { buildingId: building.id, count: 1 },
+        ]);
       });
   }
 
-  private fetchBuildings() {
-    return this.http.get<Array<Building>>(this.buildingsUrl);
+  private fetchTypes() {
+    return this.http.get<Array<Building>>(this.buildingsUrl + '/types');
   }
 
-  private countByType(buildings: Array<Building>) {
-    let flowController = 0;
-    let reefCastle = 0;
-    for (const building of buildings) {
-      if (building.name === 'áramlásirányító') flowController += 1;
-      else if (building.name === 'zátonyvár') reefCastle += 1;
-    }
-    return { flowController, reefCastle };
+  private fetchBuildings() {
+    return this.http.get<Array<BuildingByCount>>(this.buildingsUrl);
   }
 }

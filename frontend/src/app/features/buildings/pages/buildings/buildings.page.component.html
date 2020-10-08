@@ -14,7 +14,10 @@
     (click)="selectBuilding(i, building)"
   >
     <div>
-      <img class="buildings-img" [src]="building.img" />
+      <img
+        class="buildings-img"
+        [src]="'../../../../../../assets/' + building.image"
+      />
       <p>
         {{ building.name }}<br />
         {{ building.description }}

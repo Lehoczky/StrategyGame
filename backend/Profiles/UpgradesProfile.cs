@@ -8,8 +8,8 @@ namespace backend.Profiles
     {
         public UpgradesProfile()
         {
-            CreateMap<Upgrade, UpgradeReadDto>();
-            CreateMap<UpgradeCreateDto, Upgrade>();
+            CreateMap<CountryUpgrade, UpgradeReadDto>();
+            CreateMap<Upgrade, UpgradeTypeReadDto>();
         }
     }
 }

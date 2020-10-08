@@ -7,8 +7,7 @@ namespace backend.Models
         public int DefenseBonus { get; set; }
         public int AttackBonus { get; set; }
         public int TaxBonus { get; set; }
-
-        public int CountryId { get; set; }
-        public Country Country { get; set; }
+        public string Description { get; set; }
+        public string Image { get; set; }
     }
 }

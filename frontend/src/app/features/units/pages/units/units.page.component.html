@@ -6,7 +6,7 @@
 
   <div *ngFor="let unit of units; let i = index" [class]="'units-' + (i + 1)">
     <div class="units-img">
-      <div><img [src]="unit.img" /></div>
+      <div><img [src]="'../../../../../assets/' + unit.image" /></div>
       <span>{{ unit.name }}</span>
     </div>
 
@@ -27,11 +27,11 @@
     </div>
 
     <div class="units-btn-count">
-      <span class="material-icons" (click)="manageAmount(unit.typeName, -1)"
+      <span class="material-icons" (click)="manageAmount(unit.name, -1)"
         >remove_circle</span
       >
-      <span class="units-btn-count-counter">{{ toBuy[unit.typeName] }}</span>
-      <span class="material-icons" (click)="manageAmount(unit.typeName, 1)"
+      <span class="units-btn-count-counter">{{ toBuy[unit.name] || 0 }}</span>
+      <span class="material-icons" (click)="manageAmount(unit.name, 1)"
         >add_circle</span
       >
     </div>
