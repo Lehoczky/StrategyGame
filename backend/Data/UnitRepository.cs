@@ -51,7 +51,7 @@ namespace backend.Data
         {
             switch (type)
             {
-                case "attackSeal":
+                case nameof(UnitTypes.attackSeal):
                     return new Unit
                     {
                         Name = "rohamfóka",
@@ -61,7 +61,7 @@ namespace backend.Data
                         CostPerTurn = 1,
                         CoralPerTurn = 1
                     };
-                case "battleSeaHorse":
+                case nameof(UnitTypes.battleSeaHorse):
                     return new Unit
                     {
                         Name = "csatacsikó",
@@ -71,7 +71,7 @@ namespace backend.Data
                         CostPerTurn = 1,
                         CoralPerTurn = 1
                     };
-                case "laserShark":
+                case nameof(UnitTypes.laserShark):
                     return new Unit
                     {
                         Name = "lézercápa",

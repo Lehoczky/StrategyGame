@@ -64,7 +64,7 @@ namespace backend.Data
         {
             switch (type)
             {
-                case "mudTractor":
+                case nameof(UpgradeTypes.mudTractor):
                     return new Upgrade
                     {
                         Name = "iszaptraktor",
@@ -73,7 +73,7 @@ namespace backend.Data
                         AttackBonus = 0,
                         TaxBonus = 0
                     };
-                case "mudCombine":
+                case nameof(UpgradeTypes.mudCombine):
                     return new Upgrade
                     {
                         Name = "iszapkombájn",
@@ -82,7 +82,7 @@ namespace backend.Data
                         AttackBonus = 0,
                         TaxBonus = 0
                     };
-                case "coralWall":
+                case nameof(UpgradeTypes.coralWall):
                     return new Upgrade
                     {
                         Name = "korallfal",
@@ -91,7 +91,7 @@ namespace backend.Data
                         AttackBonus = 0,
                         TaxBonus = 0
                     };
-                case "sonarCannon":
+                case nameof(UpgradeTypes.sonarCannon):
                     return new Upgrade
                     {
                         Name = "szonár ágyú",
@@ -100,7 +100,7 @@ namespace backend.Data
                         AttackBonus = 20,
                         TaxBonus = 0
                     };
-                case "undergroundMartialArts":
+                case nameof(UpgradeTypes.undergroundMartialArts):
                     return new Upgrade
                     {
                         Name = "vízalatti harcművészetek",
@@ -109,7 +109,7 @@ namespace backend.Data
                         AttackBonus = 10,
                         TaxBonus = 0
                     };
-                case "alchemy":
+                case nameof(UpgradeTypes.alchemy):
                     return new Upgrade
                     {
                         Name = "alkímia",

@@ -63,7 +63,7 @@ namespace backend.Data
         {
             switch (type)
             {
-                case "flowController":
+                case nameof(BuildingTypes.flowController):
                     return new Building
                     {
                         Name = "áramlásirányító",
@@ -72,7 +72,7 @@ namespace backend.Data
                         Units = 0,
                         CoralPerTurn = 200
                     };
-                case "reefCastle":
+                case nameof(BuildingTypes.reefCastle):
                     return new Building
                     {
                         Name = "zátonyvár",
