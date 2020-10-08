@@ -13,6 +13,7 @@ namespace backend.Data
         Task<IEnumerable<CountryUnit>> GetUnitsForUser(int userId);
         Task<CountryUnit> GetUnitsById(int unitId, int userId);
         Task<CountryUnit> CreateUnitsForUser(UnitCreateDto units, int userId);
+        Task<IEnumerable<Unit>> GetUnitTypes();
     }
 
     public class UnitRepository : IUnitRepository
@@ -52,6 +53,11 @@ namespace backend.Data
             var countryUnit = AddUnitToUser(unit, units.Count, user);
             await _context.SaveChangesAsync();
             return countryUnit;
+        }
+
+        public async Task<IEnumerable<Unit>> GetUnitTypes()
+        {
+            return await _context.Units.ToListAsync();
         }
 
         private async Task<ApplicationUser> FetchUserWithUnits(int userId)

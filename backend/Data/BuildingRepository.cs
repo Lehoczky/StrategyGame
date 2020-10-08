@@ -12,6 +12,7 @@ namespace backend.Data
         Task<IEnumerable<CountryBuilding>> GetBuildingsForUser(int userId);
         Task<CountryBuilding> GetBuildingById(int buildingId, int userId);
         Task<CountryBuilding> CreateBuildingForUser(string buildingType, int userId);
+        Task<IEnumerable<Building>> GetBuildingsTypes();
     }
 
     public class BuildingRepository : IBuildingRepository
@@ -52,6 +53,11 @@ namespace backend.Data
             var countryBuilding = AddBuildingToUser(building, user);
             await _context.SaveChangesAsync();
             return countryBuilding;
+        }
+
+        public async Task<IEnumerable<Building>> GetBuildingsTypes()
+        {
+            return await _context.Buildings.ToListAsync();
         }
 
         private async Task<ApplicationUser> FetchUserWithBuildings(int userId)

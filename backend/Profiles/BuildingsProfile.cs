@@ -9,6 +9,7 @@ namespace backend.Profiles
         public BuildingsProfile()
         {
             CreateMap<CountryBuilding, BuildingReadDto>();
+            CreateMap<Building, BuildingTypeReadDto>();
         }
     }
 }

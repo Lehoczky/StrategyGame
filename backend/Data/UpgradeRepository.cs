@@ -13,6 +13,7 @@ namespace backend.Data
         Task<IEnumerable<CountryUpgrade>> GetUpgradesForUser(int userId);
         Task<CountryUpgrade> GetUpgradeById(int upgradeId, int userId);
         Task<CountryUpgrade> CreateUpgradeForUser(UpgradeCreateDto upgrade, int userId);
+        Task<IEnumerable<Upgrade>> GetUpgradeTypes();
     }
 
     public class UpgradeRepository : IUpgradeRepository
@@ -53,6 +54,11 @@ namespace backend.Data
             var countryUpgrade = AddUpgradeToUser(upgradeModel, user);
             await _context.SaveChangesAsync();
             return countryUpgrade;
+        }
+
+        public async Task<IEnumerable<Upgrade>> GetUpgradeTypes()
+        {
+            return await _context.Upgrades.ToListAsync();
         }
 
         private async Task<ApplicationUser> FetchUserWithUpgrades(int userId)

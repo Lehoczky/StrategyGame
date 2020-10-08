@@ -9,6 +9,7 @@ namespace backend.Profiles
         public UpgradesProfile()
         {
             CreateMap<CountryUpgrade, UpgradeReadDto>();
+            CreateMap<Upgrade, UpgradeTypeReadDto>();
         }
     }
 }

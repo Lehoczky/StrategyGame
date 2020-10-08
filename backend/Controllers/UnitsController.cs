@@ -44,6 +44,13 @@ namespace backend.Controllesrs
             return NotFound();
         }
 
+        [HttpGet("types")]
+        public async Task<ActionResult<IEnumerable<UnitTypeReadDto>>> GetUnitTypes()
+        {
+            var units = await _repository.GetUnitTypes();
+            return Ok(_mapper.Map<IEnumerable<UnitTypeReadDto>>(units));
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateUnitsForUser([FromBody] UnitCreateDto units)
         {
