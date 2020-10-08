@@ -6,25 +6,18 @@ import { UnitService } from 'src/app/features/units/unit.service';
   styleUrls: ['./units.page.component.scss'],
 })
 export class UnitsPageComponent {
-  units$ = this.unitService.unitsWithDescription$;
-  toBuy = {
-    laserShark: 0,
-    attackSeal: 0,
-    battleSeaHorse: 0,
-  };
+  units$ = this.unitService.units$;
+  toBuy = {};
 
   constructor(public unitService: UnitService) {}
 
   manageAmount(unitName: string, amount: number) {
-    this.toBuy[unitName] += amount;
+    if (this.toBuy.hasOwnProperty(unitName)) this.toBuy[unitName] += amount;
+    else this.toBuy[unitName] = amount;
   }
 
   purchaseUnits() {
     this.unitService.purchaseUnits(this.toBuy);
-    this.toBuy = {
-      laserShark: 0,
-      attackSeal: 0,
-      battleSeaHorse: 0,
-    };
+    this.toBuy = {};
   }
 }
