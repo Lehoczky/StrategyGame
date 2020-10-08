@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using backend.Data;
 using backend.DTOs;
+using backend.Exceptions;
+using static backend.Helpers.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,7 +28,7 @@ namespace backend.Controllesrs
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UpgradeReadDto>>> GetUpgradesForUser()
         {
-            var userId = Helpers.IdForUser(User);
+            var userId = IdForUser(User);
             var upgrades = await _repository.GetUpgradesForUser(userId);
             return Ok(_mapper.Map<IEnumerable<UpgradeReadDto>>(upgrades));
         }
@@ -34,7 +36,7 @@ namespace backend.Controllesrs
         [HttpGet("{id}", Name = "GetUpgradeById")]
         public async Task<ActionResult<UpgradeReadDto>> GetUpgradeById(int id)
         {
-            var userId = Helpers.IdForUser(User);
+            var userId = IdForUser(User);
             var upgrade = await _repository.GetUpgradeById(id, userId);
 
             if (upgrade != null)
@@ -54,7 +56,7 @@ namespace backend.Controllesrs
         [HttpPost]
         public async Task<ActionResult<UpgradeReadDto>> CreateUpgradeForUser([FromBody] UpgradeCreateDto upgrade)
         {
-            var userId = Helpers.IdForUser(User);
+            var userId = IdForUser(User);
             try
             {
                 var upgradeModel = await _repository.CreateUpgradeForUser(upgrade, userId);
@@ -65,6 +67,10 @@ namespace backend.Controllesrs
                 );
             }
             catch (ArgumentException e)
+            {
+                return BadRequest(new ErrorResponseDto { Message = e.Message });
+            }
+            catch (NotEnoughPearlsException e)
             {
                 return BadRequest(new ErrorResponseDto { Message = e.Message });
             }

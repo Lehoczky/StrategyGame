@@ -59,7 +59,7 @@ namespace backend.Data
             }
 
             var identityUser = new ApplicationUser { UserName = formData.UserName };
-            identityUser.Country = new Country { Name = formData.Country, Pearls = 0, Coralls = 0 };
+            identityUser.Country = new Country { Name = formData.Country, Pearls = 99999999, Coralls = 0 };
 
             var result = await _userManager.CreateAsync(identityUser, formData.Password);
 

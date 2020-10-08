@@ -4,6 +4,7 @@ using System.Linq;
 using backend.Models;
 using System;
 using System.Threading.Tasks;
+using static backend.Helpers.Helpers;
 
 namespace backend.Data
 {
@@ -50,6 +51,7 @@ namespace backend.Data
                 .Where(b => b.Name == buildingType)
                 .SingleOrDefaultAsync();
 
+            Pay(user, building.Price);
             var countryBuilding = AddBuildingToUser(building, user);
             await _context.SaveChangesAsync();
             return countryBuilding;
