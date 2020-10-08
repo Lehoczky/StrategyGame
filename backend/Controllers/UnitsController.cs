@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using AutoMapper;
 using backend.Data;
 using backend.DTOs;
@@ -23,22 +24,39 @@ namespace backend.Controllesrs
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<UnitReadDto>> GetUnitsForUser()
+        public async Task<ActionResult<IEnumerable<UnitReadDto>>> GetUnitsForUser()
         {
             var userId = Helpers.IdForUser(User);
-            var units = _repository.GetUnitsForUser(userId);
+            var units = await _repository.GetUnitsForUser(userId);
             return Ok(_mapper.Map<IEnumerable<UnitReadDto>>(units));
         }
 
+        [HttpGet("{id}", Name = "GetUnitsById")]
+        public async Task<ActionResult<UnitReadDto>> GetUnitsById(int id)
+        {
+            var userId = Helpers.IdForUser(User);
+            var units = await _repository.GetUnitsById(id, userId);
+
+            if (units != null)
+            {
+                return Ok(_mapper.Map<UnitReadDto>(units));
+            }
+            return NotFound();
+        }
+
         [HttpPost]
-        public IActionResult CreateUnitsForUser([FromBody] UnitCreateDto units)
+        public async Task<IActionResult> CreateUnitsForUser([FromBody] UnitCreateDto units)
         {
             var userId = Helpers.IdForUser(User);
 
             try
             {
-                _repository.CreateUnitsForUser(units, userId);
-                return Created("", new { });
+                var model = await _repository.CreateUnitsForUser(units, userId);
+                return CreatedAtRoute(
+                    nameof(GetUnitsById),
+                    new { Id = model.Id },
+                    _mapper.Map<UnitReadDto>(model)
+                );
             }
             catch (ArgumentException e)
             {

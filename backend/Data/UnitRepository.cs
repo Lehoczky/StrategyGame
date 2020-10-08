@@ -4,13 +4,15 @@ using System.Linq;
 using backend.Models;
 using System;
 using backend.DTOs;
+using System.Threading.Tasks;
 
 namespace backend.Data
 {
     public interface IUnitRepository
     {
-        IEnumerable<Unit> GetUnitsForUser(int userId);
-        void CreateUnitsForUser(UnitCreateDto units, int userId);
+        Task<IEnumerable<CountryUnit>> GetUnitsForUser(int userId);
+        Task<CountryUnit> GetUnitsById(int unitId, int userId);
+        Task<CountryUnit> CreateUnitsForUser(UnitCreateDto units, int userId);
     }
 
     public class UnitRepository : IUnitRepository
@@ -22,68 +24,65 @@ namespace backend.Data
             _context = context;
         }
 
-        public IEnumerable<Unit> GetUnitsForUser(int userId)
+        public async Task<IEnumerable<CountryUnit>> GetUnitsForUser(int userId)
         {
-            var user = FetchUserWithUnits(userId);
+            var user = await FetchUserWithUnits(userId);
             return user.Country.Units;
         }
 
-        public void CreateUnitsForUser(UnitCreateDto units, int userId)
+        public async Task<CountryUnit> GetUnitsById(int id, int userId)
         {
-            var user = FetchUserWithUnits(userId);
-            for (int _ = 0; _ < units.Count; _++)
+            var user = await FetchUserWithUnits(userId);
+            foreach (var unit in user.Country.Units)
             {
-                var unit = ModelForType(units.Name);
-                user.Country.Units.Add(unit);
+                if (unit.Id == id)
+                {
+                    return unit;
+                }
             }
-            _context.SaveChanges();
+            return null;
         }
 
-        private ApplicationUser FetchUserWithUnits(int userId)
+        public async Task<CountryUnit> CreateUnitsForUser(UnitCreateDto units, int userId)
         {
-            return _context.Users
+            var user = await FetchUserWithUnits(userId);
+            var unit = await _context.Units
+                .Where(u => u.Name == units.Name)
+                .SingleOrDefaultAsync();
+            var countryUnit = AddUnitToUser(unit, units.Count, user);
+            await _context.SaveChangesAsync();
+            return countryUnit;
+        }
+
+        private async Task<ApplicationUser> FetchUserWithUnits(int userId)
+        {
+            return await _context.Users
                 .Include(user => user.Country)
                     .ThenInclude(country => country.Units)
-                .Single(user => user.Id == userId);
+                    .ThenInclude(u => u.Unit)
+                .SingleAsync(user => user.Id == userId);
         }
 
-        private Unit ModelForType(string type)
+        private CountryUnit AddUnitToUser(Unit unit, int count, ApplicationUser user)
         {
-            switch (type)
+            CountryUnit cu = null;
+            foreach (var countryUnits in user.Country.Units)
             {
-                case "attackSeal":
-                    return new Unit
-                    {
-                        Name = "rohamfóka",
-                        Price = 50,
-                        Attack = 6,
-                        Defense = 2,
-                        CostPerTurn = 1,
-                        CoralPerTurn = 1
-                    };
-                case "battleSeaHorse":
-                    return new Unit
-                    {
-                        Name = "csatacsikó",
-                        Price = 50,
-                        Attack = 2,
-                        Defense = 6,
-                        CostPerTurn = 1,
-                        CoralPerTurn = 1
-                    };
-                case "laserShark":
-                    return new Unit
-                    {
-                        Name = "lézercápa",
-                        Price = 100,
-                        Attack = 5,
-                        Defense = 5,
-                        CostPerTurn = 3,
-                        CoralPerTurn = 2
-                    };
-                default:
-                    throw new ArgumentException("Invalid unit type");
+                if (countryUnits.Unit == unit)
+                {
+                    cu = countryUnits;
+                }
             }
+            if (cu != null)
+            {
+                cu.Count += count;
+            }
+            else
+            {
+                cu = new CountryUnit { Count = count, Unit = unit };
+                user.Country.Units.Add(cu);
+            }
+            return cu;
         }
     }
 }

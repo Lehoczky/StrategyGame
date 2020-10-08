@@ -10,9 +10,9 @@ namespace backend.Data
 {
     public interface IUpgradeRepository
     {
-        Task<IEnumerable<Upgrade>> GetUpgradesForUser(int userId);
-        Task<Upgrade> GetUpgradeById(int upgradeId, int userId);
-        Task<Upgrade> CreateUpgradeForUser(UpgradeCreateDto upgrade, int userId);
+        Task<IEnumerable<CountryUpgrade>> GetUpgradesForUser(int userId);
+        Task<CountryUpgrade> GetUpgradeById(int upgradeId, int userId);
+        Task<CountryUpgrade> CreateUpgradeForUser(UpgradeCreateDto upgrade, int userId);
     }
 
     public class UpgradeRepository : IUpgradeRepository
@@ -24,13 +24,13 @@ namespace backend.Data
             _context = context;
         }
 
-        public async Task<IEnumerable<Upgrade>> GetUpgradesForUser(int userId)
+        public async Task<IEnumerable<CountryUpgrade>> GetUpgradesForUser(int userId)
         {
             var user = await FetchUserWithUpgrades(userId);
             return user.Country.Upgrades;
         }
 
-        public async Task<Upgrade> GetUpgradeById(int id, int userId)
+        public async Task<CountryUpgrade> GetUpgradeById(int id, int userId)
         {
             var user = await FetchUserWithUpgrades(userId);
             foreach (var upgrade in user.Country.Upgrades)
@@ -43,13 +43,16 @@ namespace backend.Data
             return null;
         }
 
-        public async Task<Upgrade> CreateUpgradeForUser(UpgradeCreateDto upgrade, int userId)
+        public async Task<CountryUpgrade> CreateUpgradeForUser(UpgradeCreateDto upgrade, int userId)
         {
             var user = await FetchUserWithUpgrades(userId);
-            var upgradeModel = ModelForType(upgrade.Name);
-            user.Country.Upgrades.Add(upgradeModel);
+            var upgradeModel = await _context.Upgrades
+               .Where(u => u.Name == upgrade.Name)
+               .SingleOrDefaultAsync();
+            var countryUpgrade = new CountryUpgrade { Upgrade = upgradeModel };
+            user.Country.Upgrades.Add(countryUpgrade);
             await _context.SaveChangesAsync();
-            return upgradeModel;
+            return countryUpgrade;
         }
 
         private async Task<ApplicationUser> FetchUserWithUpgrades(int userId)
