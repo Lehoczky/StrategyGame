@@ -19,22 +19,24 @@ namespace backend.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Building>().HasData(
-                new Building { Name = "áramlásirányító", Price = 1000, Population = 50, Units = 0, CoralPerTurn = 200 },
-                new Building { Name = "zátonyvár", Price = 1000, Population = 0, Units = 200, CoralPerTurn = 0 }
+                new Building { Id = 1, Name = "áramlásirányító", Price = 1000, Population = 50, Units = 0, CoralPerTurn = 200 },
+                new Building { Id = 2, Name = "zátonyvár", Price = 1000, Population = 0, Units = 200, CoralPerTurn = 0 }
             );
             modelBuilder.Entity<Unit>().HasData(
-                new Unit { Name = "rohamfóka", Price = 50, Attack = 6, Defense = 2, CostPerTurn = 1, CoralPerTurn = 1 },
-                new Unit { Name = "csatacsikó", Price = 50, Attack = 2, Defense = 6, CostPerTurn = 1, CoralPerTurn = 1 },
-                new Unit { Name = "lézercápa", Price = 100, Attack = 5, Defense = 5, CostPerTurn = 3, CoralPerTurn = 2 }
+                new Unit { Id = 1, Name = "rohamfóka", Price = 50, Attack = 6, Defense = 2, CostPerTurn = 1, CoralPerTurn = 1 },
+                new Unit { Id = 2, Name = "csatacsikó", Price = 50, Attack = 2, Defense = 6, CostPerTurn = 1, CoralPerTurn = 1 },
+                new Unit { Id = 3, Name = "lézercápa", Price = 100, Attack = 5, Defense = 5, CostPerTurn = 3, CoralPerTurn = 2 }
             );
             modelBuilder.Entity<Upgrade>().HasData(
-                new Upgrade { Name = "iszaptraktor", CoralBonus = 10, DefenseBonus = 0, AttackBonus = 0, TaxBonus = 0 },
-                new Upgrade { Name = "iszapkombájn", CoralBonus = 15, DefenseBonus = 0, AttackBonus = 0, TaxBonus = 0 },
-                new Upgrade { Name = "korallfal", CoralBonus = 0, DefenseBonus = 20, AttackBonus = 0, TaxBonus = 0 },
-                new Upgrade { Name = "szonár ágyú", CoralBonus = 0, DefenseBonus = 0, AttackBonus = 20, TaxBonus = 0 },
-                new Upgrade { Name = "vízalatti harcművészetek", CoralBonus = 0, DefenseBonus = 10, AttackBonus = 10, TaxBonus = 0 },
-                new Upgrade { Name = "alkímia", CoralBonus = 0, DefenseBonus = 0, AttackBonus = 0, TaxBonus = 30 }
+                new Upgrade { Id = 1, Name = "iszaptraktor", CoralBonus = 10, DefenseBonus = 0, AttackBonus = 0, TaxBonus = 0 },
+                new Upgrade { Id = 2, Name = "iszapkombájn", CoralBonus = 15, DefenseBonus = 0, AttackBonus = 0, TaxBonus = 0 },
+                new Upgrade { Id = 3, Name = "korallfal", CoralBonus = 0, DefenseBonus = 20, AttackBonus = 0, TaxBonus = 0 },
+                new Upgrade { Id = 4, Name = "szonár ágyú", CoralBonus = 0, DefenseBonus = 0, AttackBonus = 20, TaxBonus = 0 },
+                new Upgrade { Id = 5, Name = "vízalatti harcművészetek", CoralBonus = 0, DefenseBonus = 10, AttackBonus = 10, TaxBonus = 0 },
+                new Upgrade { Id = 6, Name = "alkímia", CoralBonus = 0, DefenseBonus = 0, AttackBonus = 0, TaxBonus = 30 }
             );
         }
     }
