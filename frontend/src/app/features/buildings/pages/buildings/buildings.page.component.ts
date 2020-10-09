@@ -1,21 +1,32 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BuildingService } from 'src/app/features/buildings/building.service';
 import { Building } from '../../building.model';
+import { CountryService } from 'src/app/core/services/country.service';
 
 @Component({
   templateUrl: './buildings.page.component.html',
   styleUrls: ['./buildings.page.component.scss'],
 })
-export class BuildingsPageComponent {
+export class BuildingsPageComponent implements OnInit {
+  buildings$ = this.buildingService.buildings$;
+  canBuy$ = this.countryService.canBuy$;
   selectedIndex: number;
   selectedBuilding: Building;
-  buildings$ = this.buildingService.buildings$;
 
-  constructor(public buildingService: BuildingService) {}
+  constructor(
+    public buildingService: BuildingService,
+    public countryService: CountryService,
+  ) {}
 
-  selectBuilding(index: number, building) {
+  ngOnInit() {
+    const startingPrice = 0;
+    this.countryService.calculateIfCanBuy(startingPrice);
+  }
+
+  selectBuilding(index: number, building: Building) {
     this.selectedIndex = index;
     this.selectedBuilding = building;
+    this.countryService.calculateIfCanBuy(building.price);
   }
 
   purchaseBuilding() {

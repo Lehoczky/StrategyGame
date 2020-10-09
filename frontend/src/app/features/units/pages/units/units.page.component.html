@@ -27,17 +27,23 @@
     </div>
 
     <div class="units-btn-count">
-      <span class="material-icons" (click)="manageAmount(unit.name, -1)"
+      <span
+        class="material-icons"
+        (click)="manageAmount(unit.name, unit.price, -1)"
         >remove_circle</span
       >
       <span class="units-btn-count-counter">{{ toBuy[unit.name] || 0 }}</span>
-      <span class="material-icons" (click)="manageAmount(unit.name, 1)"
+      <span
+        class="material-icons"
+        (click)="manageAmount(unit.name, unit.price, 1)"
         >add_circle</span
       >
     </div>
   </div>
 
-  <div class="units-btn">
-    <button (click)="purchaseUnits()">Megveszem</button>
+  <div *ngIf="{ canBuy: canBuy$ | async } as context" class="units-btn">
+    <button [disabled]="!context.canBuy" (click)="purchaseUnits()">
+      Megveszem
+    </button>
   </div>
 </section>

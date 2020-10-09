@@ -32,7 +32,9 @@
     </div>
   </div>
 
-  <div class="buildings-btn">
-    <button (click)="purchaseBuilding()">Megveszem</button>
+  <div *ngIf="{ canBuy: canBuy$ | async } as context" class="buildings-btn">
+    <button [disabled]="!context.canBuy" (click)="purchaseBuilding()">
+      Megveszem
+    </button>
   </div>
 </section>
