@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using backend.Data;
 using backend.Models;
+using Hangfire;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -59,8 +60,10 @@ namespace backend
                 };
             });
 
+            services.AddHangfire(config =>
+                config.UseSqlServerStorage("Server=localhost,1433;Initial Catalog=StrategyGame;User ID=sa;Password=Password2020"));
+            services.AddHangfireServer();
             services.AddCors();
-
             services.AddSwaggerDocument();
             services.AddControllers();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
