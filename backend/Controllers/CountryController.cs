@@ -6,7 +6,7 @@ using static backend.Helpers.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace backend.Controllesrs
+namespace backend.Controllers
 {
     [Route("api/country")]
     [ApiController]
