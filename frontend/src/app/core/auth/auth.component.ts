@@ -2,13 +2,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
-  templateUrl: './auth.page.component.html',
-  styleUrls: ['./auth.page.component.scss'],
+  templateUrl: './auth.component.html',
+  styleUrls: ['./auth.component.scss'],
 })
-export class AuthPageComponent implements OnInit {
+export class AuthComponent implements OnInit {
   @ViewChild('f', { static: false }) authForm: NgForm;
 
   title = 'Undersea';

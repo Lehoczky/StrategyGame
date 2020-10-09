@@ -5,7 +5,7 @@ import { DebugElement } from '@angular/core';
 
 import { LeaderboardPageComponent } from './leaderboard.page.component';
 
-describe('Leaderboard.pageComponent', () => {
+describe('LeaderboardPageComponent', () => {
   let component: LeaderboardPageComponent;
   let fixture: ComponentFixture<LeaderboardPageComponent>;
 

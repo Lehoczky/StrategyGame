@@ -5,7 +5,7 @@ import { DebugElement } from '@angular/core';
 
 import { UpgradesPageComponent } from './upgrades.page.component';
 
-describe('Upgrades.pageComponent', () => {
+describe('UpgradesPageComponent', () => {
   let component: UpgradesPageComponent;
   let fixture: ComponentFixture<UpgradesPageComponent>;
 

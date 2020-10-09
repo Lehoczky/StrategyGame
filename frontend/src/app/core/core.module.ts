@@ -3,8 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
-import { AuthPageComponent } from './pages/auth/auth.page.component';
-import { StrategyPageComponent } from './pages/strategy/strategy.page.component';
 import { StatsComponent } from './components/stats/stats.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ProfileCardComponent } from './components/profile-card/profile-card.component';
@@ -17,11 +15,13 @@ import { UpgradesModule } from '../features/upgrades/upgrades.module';
 import { LeaderboardModule } from '../features/leaderboard/leaderboard.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { StrategyComponent } from './components/strategy/strategy.component';
+import { AuthComponent } from './auth/auth.component';
 
 @NgModule({
   declarations: [
-    AuthPageComponent,
-    StrategyPageComponent,
+    AuthComponent,
+    StrategyComponent,
     StatsComponent,
     SidebarComponent,
     ProfileCardComponent,

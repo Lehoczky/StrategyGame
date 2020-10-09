@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthComponent } from './core/auth/auth.component';
+import { StrategyComponent } from './core/components/strategy/strategy.component';
 import { AuthGuard } from './core/guards/auth.guard';
-import { AuthPageComponent } from './core/pages/auth/auth.page.component';
-import { StrategyPageComponent } from './core/pages/strategy/strategy.page.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/auth', pathMatch: 'full' },
-  { path: 'auth', component: AuthPageComponent },
+  { path: 'auth', component: AuthComponent },
   {
-    path: 'strategy', component: StrategyPageComponent, canActivate: [AuthGuard], children: [
+    path: 'strategy', component: StrategyComponent, canActivate: [AuthGuard], children: [
       { path: 'features/buildings', loadChildren: './features/buildings/buildings.module#BuildingsModule' },
       { path: 'features/attack', loadChildren: './features/attack/attack.module#AttackModule' },
       { path: 'features/upgrades', loadChildren: './features/upgrades/upgrades.module#UpgradesModule' },
