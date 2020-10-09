@@ -14,6 +14,7 @@ namespace backend.Data
         public DbSet<CountryBuilding> CountryBuildings { get; set; }
         public DbSet<CountryUnit> CountryUnits { get; set; }
         public DbSet<CountryUpgrade> CountryUpgrades { get; set; }
+        public DbSet<Round> Rounds { get; set; }
 
         public StrategyGameContext(DbContextOptions<StrategyGameContext> opts) : base(opts) { }
 

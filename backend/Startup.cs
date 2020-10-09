@@ -73,6 +73,7 @@ namespace backend
             services.AddScoped<IBuildingRepository, BuildingRepository>();
             services.AddScoped<IUnitRepository, UnitRepository>();
             services.AddScoped<IUpgradeRepository, UpgradeRepository>();
+            services.AddScoped<IRoundRepository, RoundRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
