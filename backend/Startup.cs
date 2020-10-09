@@ -60,9 +60,9 @@ namespace backend
                 };
             });
 
-            services.AddHangfire(config =>
-                config.UseSqlServerStorage("Server=localhost,1433;Initial Catalog=StrategyGame;User ID=sa;Password=Password2020"));
-            services.AddHangfireServer();
+            // services.AddHangfire(config =>
+            //     config.UseSqlServerStorage("Server=localhost,1433;Initial Catalog=StrategyGame;User ID=sa;Password=Password2020"));
+            // services.AddHangfireServer();
             services.AddCors();
             services.AddSwaggerDocument();
             services.AddControllers();

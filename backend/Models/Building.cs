@@ -4,11 +4,27 @@ namespace backend.Models
     {
         public string Name { get; set; }
         public int Price { get; set; }
-        public int Population { get; set; }
-        public int Units { get; set; }
-        public int CoralPerTurn { get; set; }
         public string Description { get; set; }
         public string Image { get; set; }
         public string StatImage { get; set; }
+    }
+
+    public class FlowController : Building
+    {
+        public int Population { get; set; }
+        public int CoralPerTurn { get; set; }
+        public FlowController()
+        {
+
+        }
+    }
+
+    public class ReefCastle : Building
+    {
+        public int Units { get; set; }
+        public ReefCastle()
+        {
+
+        }
     }
 }
