@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using backend.Data;
 using backend.DTOs;
+using backend.Exceptions;
+using static backend.Helpers.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,7 +28,7 @@ namespace backend.Controllesrs
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UnitReadDto>>> GetUnitsForUser()
         {
-            var userId = Helpers.IdForUser(User);
+            var userId = IdForUser(User);
             var units = await _repository.GetUnitsForUser(userId);
             return Ok(_mapper.Map<IEnumerable<UnitReadDto>>(units));
         }
@@ -34,7 +36,7 @@ namespace backend.Controllesrs
         [HttpGet("{id}", Name = "GetUnitsById")]
         public async Task<ActionResult<UnitReadDto>> GetUnitsById(int id)
         {
-            var userId = Helpers.IdForUser(User);
+            var userId = IdForUser(User);
             var units = await _repository.GetUnitsById(id, userId);
 
             if (units != null)
@@ -54,7 +56,7 @@ namespace backend.Controllesrs
         [HttpPost]
         public async Task<IActionResult> CreateUnitsForUser([FromBody] UnitCreateDto units)
         {
-            var userId = Helpers.IdForUser(User);
+            var userId = IdForUser(User);
 
             try
             {
@@ -69,7 +71,10 @@ namespace backend.Controllesrs
             {
                 return BadRequest(new ErrorResponseDto { Message = e.Message });
             }
-
+            catch (NotEnoughPearlsException e)
+            {
+                return BadRequest(new ErrorResponseDto { Message = e.Message });
+            }
         }
     }
 }

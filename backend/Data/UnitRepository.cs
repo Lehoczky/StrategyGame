@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using backend.Models;
-using System;
 using backend.DTOs;
 using System.Threading.Tasks;
+using static backend.Helpers.Helpers;
 
 namespace backend.Data
 {
@@ -50,6 +50,9 @@ namespace backend.Data
             var unit = await _context.Units
                 .Where(u => u.Name == units.Name)
                 .SingleOrDefaultAsync();
+
+            var cost = unit.Price * units.Count;
+            Pay(user, cost);
             var countryUnit = AddUnitToUser(unit, units.Count, user);
             await _context.SaveChangesAsync();
             return countryUnit;

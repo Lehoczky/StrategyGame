@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using backend.Data;
 using backend.DTOs;
+using backend.Exceptions;
+using static backend.Helpers.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,7 +28,7 @@ namespace backend.Controllesrs
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BuildingReadDto>>> GetBuildingsForUser()
         {
-            var userId = Helpers.IdForUser(User);
+            var userId = IdForUser(User);
             var buildings = await _repository.GetBuildingsForUser(userId);
             return Ok(_mapper.Map<IEnumerable<BuildingReadDto>>(buildings));
         }
@@ -34,7 +36,7 @@ namespace backend.Controllesrs
         [HttpGet("{id}", Name = "GetBuildingById")]
         public async Task<ActionResult<BuildingReadDto>> GetBuildingById(int id)
         {
-            var userId = Helpers.IdForUser(User);
+            var userId = IdForUser(User);
             var building = await _repository.GetBuildingById(id, userId);
 
             if (building != null)
@@ -54,7 +56,7 @@ namespace backend.Controllesrs
         [HttpPost]
         public async Task<ActionResult<BuildingReadDto>> CreateBuildingForUser([FromBody] BuildingCreateDto building)
         {
-            var userId = Helpers.IdForUser(User);
+            var userId = IdForUser(User);
 
             try
             {
@@ -69,7 +71,10 @@ namespace backend.Controllesrs
             {
                 return BadRequest(new ErrorResponseDto { Message = e.Message });
             }
-
+            catch (NotEnoughPearlsException e)
+            {
+                return BadRequest(new ErrorResponseDto { Message = e.Message });
+            }
         }
     }
 }

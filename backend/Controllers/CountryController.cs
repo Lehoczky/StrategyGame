@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using backend.Data;
 using backend.DTOs;
+using static backend.Helpers.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,7 +25,7 @@ namespace backend.Controllesrs
         [HttpGet]
         public async Task<ActionResult<CountryReadDto>> GetCountryForUser()
         {
-            var userId = Helpers.IdForUser(User);
+            var userId = IdForUser(User);
             var country = await _repository.GetCountryForUser(userId);
             return Ok(_mapper.Map<CountryReadDto>(country));
         }
