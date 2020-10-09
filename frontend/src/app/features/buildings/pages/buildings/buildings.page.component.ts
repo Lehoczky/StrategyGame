@@ -30,8 +30,7 @@ export class BuildingsPageComponent implements OnInit {
   }
 
   purchaseBuilding() {
-    if (this.selectedBuilding) {
-      this.buildingService.purchaseBuilding(this.selectedBuilding);
-    }
+    this.buildingService.purchaseBuilding(this.selectedBuilding);
+    this.countryService.calculateIfCanBuy(this.selectedBuilding.price);
   }
 }

@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Building } from './building.model';
 import { BehaviorSubject, combineLatest } from 'rxjs';
+import { CountryService } from 'src/app/core/services/country.service';
 
 class BuildingByCount {
   count: number;
@@ -36,6 +37,7 @@ export class BuildingService {
   constructor(
     private http: HttpClient,
     private authenticationService: AuthService,
+    public countryService: CountryService,
   ) {
     this.authenticationService.currentUser$
       .pipe(
@@ -52,6 +54,7 @@ export class BuildingService {
   }
 
   purchaseBuilding(building: Building): void {
+    this.countryService.pay(building.price);
     this.http
       .post<Building>(this.buildingsUrl, { name: building.name })
       .subscribe(() => {

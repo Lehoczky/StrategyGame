@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../core/services/auth.service';
 import { Unit } from './unit.model';
 import { BehaviorSubject, combineLatest } from 'rxjs';
+import { CountryService } from 'src/app/core/services/country.service';
 
 class UnitByCount {
   count: number;
@@ -34,6 +35,7 @@ export class UnitService {
   constructor(
     private http: HttpClient,
     private authenticationService: AuthService,
+    public countryService: CountryService,
   ) {
     this.authenticationService.currentUser$
       .pipe(
@@ -49,7 +51,8 @@ export class UnitService {
     });
   }
 
-  purchaseUnits(units: object) {
+  purchaseUnits(units: object, totalCost: number): void {
+    this.countryService.pay(totalCost);
     for (const [name, count] of Object.entries(units)) {
       const id = this.types$.getValue().find(u => u.name === name).id;
       this.http.post(this.unitsUrl, { name, count }).subscribe(() => {

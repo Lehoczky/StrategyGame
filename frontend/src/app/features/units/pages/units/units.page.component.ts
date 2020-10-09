@@ -29,7 +29,8 @@ export class UnitsPageComponent implements OnInit {
   }
 
   purchaseUnits() {
-    this.unitService.purchaseUnits(this.toBuy);
+    this.unitService.purchaseUnits(this.toBuy, this.totalCost);
     this.toBuy = {};
+    this.totalCost = 0;
   }
 }

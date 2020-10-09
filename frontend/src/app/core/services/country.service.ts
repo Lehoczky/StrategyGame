@@ -32,9 +32,16 @@ export class CountryService {
   }
 
   calculateIfCanBuy(cost: number): void {
-    const pearls = this.countrySubject$.getValue().pearls;
-    const canBuy = pearls >= cost;
+    const country = this.countrySubject$.getValue();
+    if (!country) return;
+    const canBuy = country.pearls >= cost;
     this.canBuySubject$.next(canBuy);
+  }
+
+  pay(amount: number): void {
+    const country = this.countrySubject$.getValue();
+    const pearls = (country.pearls -= amount);
+    this.countrySubject$.next({ ...country, pearls });
   }
 
   private fetchCountry() {
