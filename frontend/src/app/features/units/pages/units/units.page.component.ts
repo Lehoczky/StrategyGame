@@ -12,6 +12,10 @@ export class UnitsPageComponent {
   constructor(public unitService: UnitService) {}
 
   manageAmount(unitName: string, amount: number) {
+    if (amount < 0) {
+      amount = 0;
+    }
+
     if (this.toBuy.hasOwnProperty(unitName)) this.toBuy[unitName] += amount;
     else this.toBuy[unitName] = amount;
   }

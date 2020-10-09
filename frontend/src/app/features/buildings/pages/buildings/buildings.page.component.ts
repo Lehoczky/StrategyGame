@@ -19,6 +19,8 @@ export class BuildingsPageComponent {
   }
 
   purchaseBuilding() {
-    this.buildingService.purchaseBuilding(this.selectedBuilding);
+    if (this.selectedBuilding) {
+      this.buildingService.purchaseBuilding(this.selectedBuilding);
+    }
   }
 }

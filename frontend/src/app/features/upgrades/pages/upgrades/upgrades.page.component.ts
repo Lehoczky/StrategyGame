@@ -11,7 +11,7 @@ export class UpgradesPageComponent {
   selectedIndex: number;
   selectedUpgrade: Upgrade;
 
-  constructor(public upgradeService: UpgradeService) {}
+  constructor(public upgradeService: UpgradeService) { }
 
   selectUpgrade(index: number, upgrade: Upgrade) {
     this.selectedIndex = index;
@@ -19,6 +19,8 @@ export class UpgradesPageComponent {
   }
 
   purchaseUpgrade() {
-    this.upgradeService.purchaseUpgrade(this.selectedUpgrade);
+    if (this.selectedUpgrade) {
+      this.upgradeService.purchaseUpgrade(this.selectedUpgrade);
+    }
   }
 }
